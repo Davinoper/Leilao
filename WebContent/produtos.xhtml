@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Produtos</title>
+</h:head>
+
+<body>
+
+<h:form id="form">
+
+    <div class="card">
+        <h1>Produtos</h1>
+        <p:carousel value="#{produtoController.listaProd}" var="product" responsive="true">
+            <div class="product">
+                <div class="product-grid-item p-p-5">
+                    <div class="product-grid-item-top">
+                        <div>
+                            <i class="pi pi-tag product-category-icon"/>
+                            <span class="product-category">#{product.categoria.label}</span>
+                        </div>
+                           <p:badge value="#{product.status.text}" severity="#{produtoController.aviso(product)}" styleClass="p-mr-2"></p:badge>
+                    </div>
+                    <div class="product-grid-item-content">
+                    	<img src="https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg" width="60%px" />
+                    	<p:button value="Bid" styleClass="ui-button-warning"
+					onclick="PF('dlg').show()" disabled="#{product.status.id == 2}"/>
+                        <div class="product-name">#{product.nome}</div>
+                        <div class="product-description">#{product.descricao}</div>
+                    </div>
+                    <div class="product-grid-item-bottom">
+                        <h:outputText value="#{product.valorInicial}" styleClass="product-price">
+                            <f:convertNumber currencySymbol="R$" type="currency"/>
+                        </h:outputText>
+                    </div>
+                </div>
+            </div>
+            
+            	<p:dialog header="Consulta de Usuários" widgetVar="dlg" minHeight="40"
+			width="80%" showEffect="fade" maximizable="true" modal="true">
+			<div class="card" id="table">
+
+				
+					<f:facet name="header">
+                Dê seu lance!
+            </f:facet>
+
+				
+			
+			<h:panelGrid id="pg1" >
+			
+			<img src="https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg" width="30%px" />
+			<div class="p-field p-grid" >
+				<label for="Nome" class="p-col-fixed" style="width: 100px">Lance:</label>
+				<div class="p-col">
+					<p:inputText id="nome" type="text"/>
+				</div>
+				<p:commandButton value="BidIT"></p:commandButton>
+			</div>
+			</h:panelGrid>
+
+
+
+
+
+			</div>
+
+		</p:dialog>
+            
+
+            <f:facet name="footer">
+               produtos
+            </f:facet>
+        </p:carousel>
+    </div>
+
+   
+</h:form>
+</body>
+
+</html>			
+
