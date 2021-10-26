@@ -5,13 +5,19 @@ import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+
+import org.primefaces.event.SelectEvent;
 
 import Repository.EmpresaRepository;
 import Repository.EnderecoRepository;
+import application.JpaUtil;
 import application.Message;
 import application.RepositoryException;
+import listing.EmpresaListing;
 import modelo.Empresa;
 import modelo.Estado;
+import modelo.Produto;
 
 @Named
 @ViewScoped
@@ -81,9 +87,21 @@ public class EmpresaController extends Controller<Empresa> implements Serializab
 		
 	}
 	
+	public void editar(int id) {
+		EntityManager em = JpaUtil.getEntityManager();
+		setEntity(em.find(Empresa.class, id));
+	}
 	
 	
+	public void abrirEmpresaListing() {
+		EmpresaListing listing = new EmpresaListing();
+		listing.open();
+	}
 	
+	public void obterEmpresaListing(SelectEvent<Empresa> event) {
+		setEntity(event.getObject());
+	}
+
 	
 	
 	

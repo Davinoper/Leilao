@@ -1,20 +1,24 @@
 package controller;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import org.primefaces.event.SelectEvent;
+
 import Repository.EmpresaRepository;
 import Repository.ProdutoRepository;
 import application.JpaUtil;
 import application.RepositoryException;
+import listing.EmpresaListing;
 import modelo.Categoria;
 import modelo.Empresa;
 import modelo.Produto;
-import modelo.StatusProduto;
+
 
 @Named
 @ViewScoped
@@ -26,6 +30,7 @@ public class ProdutoController extends Controller<Produto> implements Serializab
 	private static final long serialVersionUID = -5283872523256589679L;
 	private List<Produto> listaProd;
 	private Categoria listaCategoria[];
+
 	private List<Empresa> listaEmpresa;
 
 
@@ -43,14 +48,7 @@ public class ProdutoController extends Controller<Produto> implements Serializab
 
 	}
 
-	public String aviso(Produto product) {
-		if (product.getStatus() == StatusProduto.INSTOCK) {
-			return "success";
-		} else {
-			return "danger";
-		}
-
-	}
+	
 
 
 	public Categoria[] getListaCategoria() {
@@ -93,5 +91,15 @@ public class ProdutoController extends Controller<Produto> implements Serializab
 		}
 		return listaEmpresa;
 	}
+	
+	public void abrirEmpresaListing() {
+		EmpresaListing listing = new EmpresaListing();
+		listing.open();
+	}
+	
+	public void obterEmpresaListing(SelectEvent<Empresa> event) {
+		getEntity().setEmpresa(event.getObject());
+	}
+
 
 }

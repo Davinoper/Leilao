@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:iu="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>Cadastro</title>
+</h:head>
+
+<iu:composition template="/template.xhtml">
+	<iu:define name="content">
+
+		<h:body>
+			
+				<p:dialog header="Alterar informações" widgetVar="dlg"
+					minHeight="40" width="50%" showEffect="fade" maximizable="true"
+					modal="true">
+					<h:form>
+
+					<p:growl id="growl" showDetail="false" />
+
+
+					<h:panelGrid id="pg1">
+						<div class="p-field p-grid">
+							<label for="Nome" class="p-col-fixed" style="width: 100px">Nome:</label>
+							<div class="p-col">
+								<p:inputText id="nome" type="text"
+									value="#{templateController.usuarioLogado.nome}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Cpf:</label>
+							<div class="p-col">
+								<p:inputText id="cpf" type="text"
+									value="#{templateController.usuarioLogado.cpf}" />
+							</div>
+							<label for="Email" class="p-col-fixed" style="width: 100px">Email:</label>
+							<div class="p-col">
+								<p:inputText id="email" type="text"
+									value="#{templateController.usuarioLogado.email}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Senha" class="p-col-fixed" style="width: 100px">Senha:</label>
+							<div class="p-col">
+								<p:inputText id="senha" type="text"
+									value="#{templateController.usuarioLogado.senha}" />
+							</div>
+
+						</div>
+
+
+
+						<p:outputLabel for="phone" value="Telefone" />
+						<p:inputMask id="phone"
+							value="#{templateController.usuarioLogado.telefone}"
+							mask="(99) 99999-9999" validateMask="true" />
+
+
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Cidade:</label>
+							<div class="p-col">
+								<p:inputText id="cidade" type="text"
+									value="#{templateController.usuarioLogado.endereco.cidade}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Rua:</label>
+							<div class="p-col">
+								<p:inputText id="rua" type="text"
+									value="#{templateController.usuarioLogado.endereco.rua}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Bairro:</label>
+							<div class="p-col">
+								<p:inputText id="bairro" type="text"
+									value="#{templateController.usuarioLogado.endereco.bairro}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Lote:</label>
+							<div class="p-col">
+								<p:inputText id="lote" type="text"
+									value="#{templateController.usuarioLogado.endereco.lote}" />
+							</div>
+
+						
+
+							<p:outputLabel for="@next" value="Estado:" />
+							<p:selectOneMenu id="option"
+								value="#{templateController.usuarioLogado.endereco.estado}">
+								<f:selectItems value="#{empresaController.listaEstados}"
+									var="obj" itemLabel="#{obj.label}" />
+								<f:facet name="footer">
+									<p:divider styleClass="p-mt-0" />
+									<h:outputText value="27 opções" style="font-weight:bold;" />
+								</f:facet>
+							</p:selectOneMenu>
+
+						</div>
+							
+							<p:column>
+								<p:commandButton value="Alterar"
+								styleClass="ui-button-raised ui-button-warning"
+								actionListener="#{usuarioController.altera}" process="@form"
+								update="pg1" onclick="PF('dlg').close()"/>
+							</p:column>
+					</h:panelGrid>
+					</h:form>
+				</p:dialog>
+
+			
+
+
+				<f:facet name="header">
+                Informações de usuário
+            </f:facet>
+
+
+
+<p:card
+				style="width:30%; margin-bottom: 2em;align:center; justify-content:center;align-items: center;margin-left:35%;margin-top:5%">
+
+				<p:dataViewGridItem>
+					<div class="card p-d-flex p-jc-center">
+						<h:panelGrid columns="2" cellpadding="7">
+							<h:outputText value="Nome:" styleClass="text-secondary" />
+							<h:outputText value="#{templateController.usuarioLogado.nome}" />
+
+							<h:outputText value="Cpf:" styleClass="text-secondary" />
+							<p:column>
+								<span class="flag flag-#{customer.country.code}"
+									style="width: 30px; height: 20px" />
+								<h:outputText style="vertical-align: middle; margin-left: .5rem"
+									value="#{templateController.usuarioLogado.cpf}" />
+							</p:column>
+
+							<h:outputText value="Email:" styleClass="text-secondary" />
+							<h:outputText value="#{templateController.usuarioLogado.email}" />
+
+							<h:outputText value="Telefone:" styleClass="text-secondary" />
+							<h:outputText
+								value="#{templateController.usuarioLogado.telefone}" />
+
+							<h:outputText value="Cidade:" styleClass="text-secondary" />
+							<h:outputText
+								value="#{templateController.usuarioLogado.endereco.cidade}" />
+
+							<h:outputText value="Rua:" styleClass="text-secondary" />
+							<h:outputText
+								value="#{templateController.usuarioLogado.endereco.rua}" />
+
+							<h:outputText value="Bairro:" styleClass="text-secondary" />
+							<h:outputText
+								value="#{templateController.usuarioLogado.endereco.bairro}" />
+
+							<h:outputText value="Lote:" styleClass="text-secondary" />
+							<h:outputText
+								value="#{templateController.usuarioLogado.endereco.lote}" />
+
+							<h:outputText value="Estado:" styleClass="text-secondary" />
+							<h:outputText
+								value="#{templateController.usuarioLogado.endereco.estado.label}" />
+
+						</h:panelGrid>
+						<p:column>
+						<p:button value="Alterar" styleClass="ui-button-warning"
+								onclick="PF('dlg').show()" />
+						</p:column>
+					</div>
+				</p:dataViewGridItem>
+
+
+
+</p:card>
+
+
+
+
+
+
+
+
+
+
+
+			
+		</h:body>
+	</iu:define>
+</iu:composition>
+</html>

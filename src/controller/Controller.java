@@ -27,7 +27,7 @@ protected T entity = null;
 		try {
 			repo.adicionar(getEntity());
 			limpar();
-			Message.addInfoMessage("Usuário salvo com sucesso.");
+			Message.addInfoMessage("Salvo com sucesso.");
 		} catch (RepositoryException e) {
 			Message.addErrorMessage("Problemas ao executar a função!");
 		}
@@ -40,7 +40,7 @@ protected T entity = null;
 		try {
 			repo.altera(getEntity());
 			limpar();
-			Message.addInfoMessage("Usuário alterado com sucesso.");
+			Message.addInfoMessage("Alterado com sucesso.");
 		} catch (Exception e) {
 			Message.addErrorMessage("Problemas ao executar a função!");
 			e.printStackTrace();
@@ -56,7 +56,7 @@ protected T entity = null;
 		try {
 			repo.remove(getEntity());
 			limpar();
-			Message.addInfoMessage("Usuário removido com sucesso.");
+			Message.addInfoMessage("Removido com sucesso.");
 		} catch (RepositoryException e) {
 			Message.addErrorMessage("Problemas ao executar a função!");
 		}

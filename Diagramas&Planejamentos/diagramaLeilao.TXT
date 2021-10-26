@@ -1,0 +1,139 @@
+@startuml
+class Usuario{
+-id:int
+-nome:String
+-cpf:String
+-email:String
+-senha:String
+-telefone:String
+
+}
+
+class Lance{
+-id:int
+-dataLance:LocalDate
+-valor:double
+-cancelado:boolean
+}
+
+enum TipoChave{
++CPF:int
++CHAVEALEATORIA:int
++NUMERO:int
++CNPJ:int
+}
+
+class Endereco{
+-cidade:String
+-rua:String
+-bairro:String
+-casa:String
+-telefone:String
+}
+
+class Pagamento{
+-data:LocalDate
+-valor:double
+
+}
+
+class FormaPagamento{
+
+}
+
+class Cartao{
+-numero:String
+-vencimento:string
+-ccv:String
+-nome:String ​
+}
+
+enum BandeiraCartao{
++VISA:int
++MASTERCARD:int
++AMERICAN:int
++ELO:int
+
+}
+
+
+class Pix{
+-chave:String
+
+}
+
+Enum Estado{
++TOCANTINS:int
++ACRE:int
++AMAPA:int
++ALAGOAS:int
++MARANHAO:int
++BAHIA:int
++MINASGERAIS:int
++RIODEJANEIRO:int
++SAOPAULO:int
+...
+}
+
+class Empresa{
+-id:int
+-nome:String
+-cnpj:String
+}
+
+class Produto{
+-id:int
+-nome:String
+-valor:double
+-descricao:String
+-dataInit:LocalDate
+-dataFim:LocalDate
+-vendido:boolean
+
+}
+
+Enum Perfil{
++ADM:int
++COMUM:int
+}
+
+Enum Categoria{
++VEICULO:int
++LIVRO:int
++ALIMENTICIO:int
++ANIMAL:int
++ELETRONICO:int
++CASA:int
+
+}
+
+
+
+Lance "1" *--> "1" Usuario
+Lance "1" *--> "1"Produto
+
+Usuario "*" --> "*" Produto: "listaInteresse"
+Usuario "*" --> "1" Perfil
+Usuario "1" *--> "1" Endereco
+Usuario "1" *--> "*" FormaPagamento: "listaFormaPagamento" 
+
+Pagamento "*" o--> "1" Usuario
+Pagamento "*" o--> "1" FormaPagamento
+Pagamento "*" o--> "1" Produto
+
+Empresa "1" *--> "1" Endereco
+
+Produto "*" --> "1" Categoria
+Produto "*" --> "1" Empresa
+Produto "1" --> "1" Lance: "lanceGanhador"
+
+Endereco "*" --> "1" Estado
+
+Cartao "*" --> "1" BandeiraCartao
+
+Cartao -up-|> FormaPagamento
+Pix -up-|> FormaPagamento
+Pix "1" --> "*" TipoChave
+
+@endum
+@enduml

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:iu="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>Cadastro</title>
+</h:head>
+
+<iu:composition template="/template.xhtml">
+	<iu:define name="content">
+		<h:body>
+
+			<p:card
+				style="width:30%; margin-bottom: 2em;align:center; justify-content:center;align-items: center;margin-left:35%;margin-top:5%">
+				<h:form>
+					<p:growl id="growl" showDetail="false" />
+
+
+					<h:panelGrid id="pg1">
+						<div class="p-field p-grid">
+							<label for="Nome" class="p-col-fixed" style="width: 100px">Nome:</label>
+							<div class="p-col">
+								<p:inputText id="nome" type="text"
+									value="#{usuarioController.entity.nome}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Cpf:</label>
+							<div class="p-col">
+								<p:inputText id="cpf" type="text"
+									value="#{usuarioController.entity.cpf}" />
+							</div>
+							<label for="Email" class="p-col-fixed" style="width: 100px">Email:</label>
+							<div class="p-col">
+								<p:inputText id="email" type="text"
+									value="#{usuarioController.entity.email}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Senha" class="p-col-fixed" style="width: 100px">Senha:</label>
+							<div class="p-col">
+								<p:inputText id="senha" type="text"
+									value="#{usuarioController.entity.senha}" />
+							</div>
+
+						</div>
+
+					
+
+							<p:outputLabel for="phone" value="Telefone" />
+							<p:inputMask id="phone" value="#{usuarioController.entity.telefone}"
+								mask="(99) 99999-9999" validateMask="true" />
+				
+
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Cidade:</label>
+							<div class="p-col">
+								<p:inputText id="cidade" type="text"
+									value="#{usuarioController.entity.endereco.cidade}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Rua:</label>
+							<div class="p-col">
+								<p:inputText id="rua" type="text"
+									value="#{usuarioController.entity.endereco.rua}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Bairro:</label>
+							<div class="p-col">
+								<p:inputText id="bairro" type="text"
+									value="#{usuarioController.entity.endereco.bairro}" />
+							</div>
+						</div>
+						<div class="p-field p-grid">
+							<label for="Cpf" class="p-col-fixed" style="width: 100px">Lote:</label>
+							<div class="p-col">
+								<p:inputText id="lote" type="text"
+									value="#{usuarioController.entity.endereco.lote}" />
+							</div>
+						
+						<p:outputLabel for="@next" value="Perfil:" />
+										<p:selectOneMenu id="perfil"
+											value="#{usuarioController.entity.perfil}">
+											<f:selectItems value="#{usuarioController.listaPerfil}"
+												var="obj" itemLabel="#{obj.label}" />
+											<f:facet name="footer">
+												<p:divider styleClass="p-mt-0" />
+												<h:outputText value="27 opções" style="font-weight:bold;" />
+											</f:facet>
+										</p:selectOneMenu>
+						
+						
+										<p:outputLabel for="@next" value="Estado:" />
+										<p:selectOneMenu id="option"
+											value="#{usuarioController.entity.endereco.estado}">
+											<f:selectItems value="#{empresaController.listaEstados}"
+												var="obj" itemLabel="#{obj.label}" />
+											<f:facet name="footer">
+												<p:divider styleClass="p-mt-0" />
+												<h:outputText value="27 opções" style="font-weight:bold;" />
+											</f:facet>
+										</p:selectOneMenu>
+						
+								</div>
+				
+
+
+
+						<h:panelGroup columns="4">
+
+
+
+
+
+							<p:commandButton value="Adicionar"
+								styleClass="ui-button-raised ui-button-success"
+								actionListener="#{usuarioController.adicionar}" process="@form"
+								update="@form" />
+
+
+							<p:commandButton value="Alterar"
+								styleClass="ui-button-raised ui-button-warning"
+								actionListener="#{usuarioController.altera}" process="@form"
+								update="data pg1" />
+
+							<p:commandButton value="Remover"
+								actionListener="#{usuarioController.remove}"
+								styleClass="ui-button-raised ui-button-danger" process="@form"
+								update="@form data "></p:commandButton>
+
+							<p:commandButton value="Limpar"
+								styleClass="ui-button-raised ui-button-info"
+								actionListener="#{usuarioController.limpar}" process="@this"
+								update="@form" />
+
+
+
+							<p:button icon="pi pi-search" styleClass="ui-button-warning"
+								onclick="PF('dlg').show()" />
+						</h:panelGroup>
+					</h:panelGrid>
+
+					<p:dialog header="Consulta de Usuários" widgetVar="dlg"
+						minHeight="40" width="80%" showEffect="fade" maximizable="true"
+						modal="true">
+						<div class="card" id="table">
+
+							<p:dataTable id="data" value="#{usuarioController.listaUsu}"
+								var="obj" rowKey="#{obj.id}" selectionMode="single">
+								<f:facet name="header">
+                Informações de usuário
+            </f:facet>
+
+								<p:column headerText="Id">
+									<h:outputText value="#{obj.id}" />
+								</p:column>
+								<p:column headerText="Nome">
+									<h:outputText value="#{obj.nome}" />
+								</p:column>
+								<p:column headerText="Cpf">
+									<h:outputText value="#{obj.cpf}" />
+								</p:column>
+								<p:column headerText="Email">
+									<h:outputText value="#{obj.email}" />
+								</p:column>
+								<p:column headerText="Senha">
+									<h:outputText value="#{obj.senha}" />
+								</p:column>
+								<p:column headerText="Ações">
+
+									<p:commandButton value="Editar"
+										actionListener="#{usuarioController.editar(obj.id)}"
+										styleClass="ui-button-raised ui-button-warning"
+										update="@form:pg1" onclick="PF('dlg').close()">
+
+									</p:commandButton>
+
+
+								</p:column>
+							</p:dataTable>
+
+
+
+
+
+						</div>
+
+					</p:dialog>
+
+
+
+
+
+
+
+				</h:form>
+			</p:card>
+
+		</h:body>
+	</iu:define>
+</iu:composition>
+</html>

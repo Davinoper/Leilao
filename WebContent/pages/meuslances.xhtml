@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:iu="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<title>Meus Lances</title>
+</h:head>
+<h:body>
+<iu:composition template="/template.xhtml">
+		<iu:define name="content">
+
+	
+		<div class="card" id="table">
+			<h:form>
+						<p:growl id="growl" showDetail="false" />
+							<p:dataTable id="data" value="#{meusLancesController.listaLances}"
+								var="obj" rowKey="#{obj.id}" selectionMode="single">
+								<f:facet name="header">
+                				Informações de usuário
+            					</f:facet>
+
+								<p:column headerText="Id">
+									<h:outputText value="#{obj.id}" />
+								</p:column>
+								<p:column headerText="Horario">
+									<h:outputText value="#{obj.tempo}" />
+								</p:column>
+								<p:column headerText="Valor">
+									<h:outputText value="#{obj.valor}" />
+								</p:column>
+								<p:column headerText="Produto">
+									<h:outputText value="#{obj.prod.nome}" />
+								</p:column>
+								<p:column headerText="Ganhador">
+									<h:outputText value="#{obj.ganhador}" />
+								</p:column>
+								<p:column headerText="Ações">
+									<p:commandButton value="cancelar" process="@all" upddate="@all" actionListener="#{meusLancesController.cancelar(obj)}">
+									<p:commandButton value="comprar" rendered="#{obj.ganhador == true}"/>
+							
+									
+									
+									</p:commandButton>
+								</p:column>
+
+								
+							</p:dataTable>
+
+
+
+
+	</h:form>
+						</div>
+					
+						</iu:define>
+						</iu:composition>
+						
+						</h:body>
+						</html>
+						

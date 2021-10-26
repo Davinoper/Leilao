@@ -1,4 +1,4 @@
-package controller;
+ package controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,10 +8,13 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import Repository.EnderecoRepository;
 import Repository.UsuarioRepository;
 import application.JpaUtil;
 import application.Message;
 import application.RepositoryException;
+import modelo.Estado;
+import modelo.Perfil;
 import modelo.Usuario;
 
 @Named
@@ -23,6 +26,7 @@ public class UsuarioController extends Controller<Usuario> implements Serializab
 	 */
 	private static final long serialVersionUID = 6774623335617419574L;
 	private List<Usuario> listaUsu;
+	private Perfil[] listaPerfil;
 
 
 	public void limpar() {
@@ -35,6 +39,14 @@ public class UsuarioController extends Controller<Usuario> implements Serializab
 		setEntity(em.find(Usuario.class, id));
 	}
 
+	public Perfil[] getListaPerfil() {
+		if(listaPerfil == null) {
+			listaPerfil = Perfil.values();
+		}
+		return listaPerfil;
+		
+		
+	}
 
 	public List<Usuario> getListaUsu() {
 		if (listaUsu == null) {
@@ -51,6 +63,23 @@ public class UsuarioController extends Controller<Usuario> implements Serializab
 
 	public void setListaUsu(List<Usuario> listaUsu) {
 		this.listaUsu = listaUsu;
+	}
+	
+	public void adicionar() {
+		UsuarioRepository repo = new UsuarioRepository();
+		EnderecoRepository repo2 = new EnderecoRepository();
+		try {
+			if(getEntity().getPerfil() != Perfil.ADM) {
+				getEntity().setPerfil(Perfil.COMUM);
+			}
+			Usuario usu =repo.adicionar(getEntity());
+			repo2.adicionarEnd(usu.getEndereco().getId(),getEntity().getEndereco());
+			limpar();
+			Message.addInfoMessage("Salvo com sucesso.");
+		} catch (RepositoryException e) {
+			Message.addErrorMessage("Problemas ao executar a função!");
+		}
+		
 	}
 
 	@Override

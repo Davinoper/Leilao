@@ -1,5 +1,7 @@
 package Repository;
 
+
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,11 +10,12 @@ import javax.persistence.Query;
 import application.JpaUtil;
 import application.Message;
 import application.RepositoryException;
-import modelo.Usuario;
 
 
 
 public class Repository<T> {
+	
+	
 	
 	private EntityManager em = null;
 	
@@ -26,6 +29,7 @@ public class Repository<T> {
 			em.getTransaction().begin();
 			T t = em.merge(obj);
 			em.getTransaction().commit();
+			System.out.println(t.toString());
 			return t;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,7 +84,23 @@ public class Repository<T> {
 
 	}
 	
+	public T findById(int id) throws RepositoryException {
+		try {
+			// obtendo o tipo da classe de forma generica (a classe deve ser publica)
+			final ParameterizedType type = 	(ParameterizedType) getClass().getGenericSuperclass();
+			Class<T> tClass = (Class<T>) (type).getActualTypeArguments()[0];
+			
+			T t = (T) getEntityManager().find(tClass, id);
+			return t;
+		} catch (Exception e) {
+			System.out.println("Erro ao executar o método find do Repository");
+			e.printStackTrace();
+			throw new RepositoryException("Erro ao buscar os dados");
+		}
+	}
 	
+	
+	@SuppressWarnings("unused")
 	private EntityManager getEntityManager() {
 		return em;
 	}

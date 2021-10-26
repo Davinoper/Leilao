@@ -17,71 +17,84 @@
 </h:head>
 <h:body>
 
-	
-<div class="card">
-    <h:form>
-        <p:growl id="messages"/>
+<h:form>
 
-        <p:menubar>
-            <p:submenu label="File" icon="pi pi-fw pi-file">
-                <p:submenu label="New" icon="pi pi-fw pi-plus">
-                    <p:menuitem value="Bookmark" icon="pi pi-fw pi-bookmark"/>
-                    <p:menuitem value="Video" icon="pi pi-fw pi-video"/>
-                </p:submenu>
-                <p:menuitem value="Delete" icon="pi pi-fw pi-trash"/>
-                <p:divider />
-                <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
-            </p:submenu>
-
-            <p:submenu label="Edit" icon="pi pi-fw pi-pencil">
-                <p:menuitem value="Left" icon="pi pi-fw pi-align-left"/>
-                <p:menuitem value="Right" icon="pi pi-fw pi-align-right"/>
-                <p:menuitem value="Center" icon="pi pi-fw pi-align-center"/>
-                <p:menuitem value="Justify" icon="pi pi-fw pi-align-justify"/>
-            </p:submenu>
-
-            <p:submenu label="Users" icon="pi pi-fw pi-user">
-                <p:menuitem value="New" icon="pi pi-fw pi-user-plus"/>
-                <p:menuitem value="Delete" icon="pi pi-fw pi-user-minus"/>
-                <p:submenu label="Search" icon="pi pi-fw pi-users">
-                    <p:submenu label="Filter" icon="pi pi-fw pi-filter">
-                        <p:menuitem value="Print" icon="pi pi-fw pi-print"/>
-                    </p:submenu>
-                    <p:menuitem value="List" icon="pi pi-fw pi-bars"/>
-                </p:submenu>
-            </p:submenu>
-
-            <p:submenu label="Events" icon="pi pi-fw pi-calendar">
-                <p:submenu label="Edit" icon="pi pi-fw pi-pencil">
-                    <p:menuitem value="Save" icon="pi pi-fw pi-calendar-plus"/>
-                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>
-                </p:submenu>
-                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
-                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
-                </p:submenu>
-            </p:submenu>
-
-            <p:divider layout="vertical"/>
-
-            <p:menuitem value="Quit" icon="pi pi-fw pi-power-off"/>
-
-            <f:facet name="options">
-                <div class="ui-input-icon-left p-mr-2">
-                    <i class="pi pi-fw pi-search" />
-                    <p:inputText placeholder="Search"/>
-                </div>
-                <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
-            </f:facet>
-        </p:menubar>
-    </h:form>
+	<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+      <h5 class="text-white h4">Collapsed content</h5>
+      <span class="text-muted">Toggleable via the navbar brand.</span>
+    </div>
+  </div>
+  
+  <nav class="navbar navbar-dark bg-dark">
+       	<img src="https://w7.pngwing.com/pngs/838/205/png-transparent-auction-gavel-icon-auction-angle-internet-hammer-thumbnail.png" width="3%"/>
+       	<h:outputLabel value="Bem vindo #{templateController.usuarioLogado.nome}" style="color:white" rendered="#{templateController.usuarioLogado != null}"/>
+       <p:commandButton icon="pi pi-list" type="button" onclick="PF('sidebar2').show()"  styleClass="ui-button-outlined ui-button-secondary" rendered="#{templateController.usuarioLogado != null}"/>
+  </nav>
 </div>
+	
+    <p:sidebar widgetVar="sidebar2" position="right" >
+        <h3>Menu</h3>
+        <div>
+        
+        </div>
+        <div style="margin-top:10px">
+    	<p:commandLink  value="Cadastro Produtos" action="/faces/pages/cadprod.xhtml?faces-redirect=true" rendered="#{templateController.usuarioLogado.perfil.id != 2}"/>
+    	</div>
+    	<div style="margin-top:10px">
+    	<p:commandLink value="Cadastro Empresa" action="/faces/pages/cadempresa.xhtml?faces-redirect=true" rendered="#{templateController.usuarioLogado.perfil.id  != 2}"/>
+    	</div>
+    	<div style="margin-top:10px">
+    	<p:commandLink value="Cadastro Usuário" action="/faces/pages/cadusu.xhtml?faces-redirect=true" rendered="#{templateController.usuarioLogado.perfil.id  != 2}"/>
+    	</div>
+    	<div style="margin-top:10px">
+    	<p:commandLink value="Produtos" action="/faces/pages/produtos.xhtml?faces-redirect=true"/>
+    	</div>
+    	<div style="margin-top:10px">
+    	<p:commandLink value="Meus lances"  action="/faces/pages/meuslances.xhtml?faces-redirect=true"/>
+    	</div>
+    	<div style="margin-top:10px">
+    	<p:commandLink value="Lances" action="/faces/pages/lances.xhtml?faces-redirect=true" rendered="#{templateController.usuarioLogado.perfil.id  != 2}"/>
+    	</div>
+    	<div style="margin-top:10px">
+    	<p:commandLink value="Meu Perfil" action="/faces/pages/perfil.xhtml?faces-redirect=true" />
+    	</div>
+    		<div style="margin-top:10px">
+    	<p:commandLink value="Lista de Desejos" action="/faces/pages/listadesejos.xhtml?faces-redirect=true" />
+    	</div>
+    	<div style="margin-top:10px">
+    	<p:commandLink value="Sair" action="#{templateController.encerrarSessao}" />
+    	</div>
+    	
+    	
+    
+    </p:sidebar>
+    
+    
+    
+    
+
+</h:form>
 
 
 
-<iu:insert name="content" id="content" margin-left="auto">
+    
+    <iu:insert name="content" id="content" margin-left="auto">
 
 
 </iu:insert>
+    
+
+<footer>
+<nav class="navbar fixed-bottom navbar-dark bg-dark" >
+  <div class="container-fluid" >
+    <a class="navbar-brand" href="#">Bid Club</a>
+  </div>
+</nav>
+</footer>
+
+
 
 
 	

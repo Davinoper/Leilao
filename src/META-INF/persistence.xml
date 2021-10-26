@@ -3,6 +3,13 @@
 	<persistence-unit name="Leilao">
 	
 		<class>modelo.Usuario</class>
+		<class>modelo.Produto</class>
+		<class>modelo.Empresa</class>
+		<class>modelo.Lance</class>
+		<class>modelo.Endereco</class>
+		<class>modelo.Pagamento</class>
+		<class>modelo.FormaPagamento</class>
+		<class>modelo.Cartao</class>
 	
 	<properties>
 			<!-- DB Driver -->

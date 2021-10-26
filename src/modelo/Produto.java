@@ -1,13 +1,13 @@
 package modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 
 @Entity
 public class Produto {
@@ -19,10 +19,11 @@ public class Produto {
 	private double valor;
 	private String descricao;
 	private Categoria categoria;
-	private StatusProduto status = StatusProduto.INSTOCK;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Empresa empresa;
-	private Date tempo;
+	private LocalDate tempoInit;
+	private LocalDate tempoFim;
+	private boolean vendido;
 	
 	
 	public int getId() {
@@ -55,12 +56,7 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	public StatusProduto getStatus() {
-		return status;
-	}
-	public void setStatus(StatusProduto status) {
-		this.status = status;
-	}
+	
 	public Empresa getEmpresa() {
 		if(empresa == null) {
 			empresa = new Empresa();
@@ -70,11 +66,31 @@ public class Produto {
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
-	public Date getTempo() {
-		return tempo;
+	
+
+	public LocalDate getTempoInit() {
+		return tempoInit;
 	}
-	public void setTempo(Date tempo) {
-		this.tempo = tempo;
+	public void setTempoInit(LocalDate tempoInit) {
+		this.tempoInit = tempoInit;
+	}
+	public LocalDate getTempoFim() {
+		return tempoFim;
+	}
+	public void setTempoFim(LocalDate tempoFim) {
+		this.tempoFim = tempoFim;
+	}
+	public boolean isVendido() {
+		return vendido;
+	}
+	public void setVendido(boolean vendido) {
+		this.vendido = vendido;
+	}
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", valor=" + valor + ", descricao=" + descricao + ", categoria="
+				+ categoria + ", empresa=" + empresa + ", tempoInit=" + tempoInit + ", tempoFim=" + tempoFim
+				+ ", vendido=" + vendido + "]";
 	}
 	
 	

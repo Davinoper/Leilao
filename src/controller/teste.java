@@ -1,10 +1,14 @@
 package controller;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import modelo.Usuario;
+import Repository.LanceRepository;
+import application.RepositoryException;
+import modelo.Lance;
 
 public class teste {
 
@@ -14,17 +18,20 @@ public class teste {
 		
 		EntityManager em = emf.createEntityManager();
 		
-		Usuario usu = new Usuario();
-		usu.setCpf(null);
-		usu.setEmail(null);
-		usu.setNome(null);
-		usu.setSenha(null);
+		LanceRepository repo = new LanceRepository();
 		
-		em.getTransaction().begin();
-		Usuario teste = em.merge(usu);
-		em.getTransaction().commit();
 		
-		System.out.println(teste.toString());
+		List<Lance> lista = null;
+		try {
+			lista = repo.obterTodos(Lance.class);
+		} catch (RepositoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(int i =0; i < lista.size(); i++ ) {
+			System.out.println(lista.get(i));
+		}
 		
 
 	}

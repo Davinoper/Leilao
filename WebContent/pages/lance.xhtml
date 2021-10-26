@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:iu="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<title>Produto</title>
+	<link href="./resources/css/default.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+<iu:composition template="/template.xhtml">
+	<iu:define name="content">
+
+		<h:body>
+
+			<h:form id="form">
+
+				<p:growl id="growl" showDetail="false" />
+
+
+
+
+
+				<p:card
+					style="width:30%; margin-bottom: 2em;align:center; justify-content:center;align-items: center;margin-left:35%;margin-top:5%">
+
+					<h:panelGrid id="pg1" styleClass="centerDiv">
+
+						<img
+							src="https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg"
+							width="50%" />
+			
+						
+						<p:chip label="#{pagLanceController.produto.nome}" 
+                    styleClass="p-mr-2 custom-chip"/>
+
+						<div class="p-field p-grid">
+							<label for="Nome" class="p-col-fixed" style="width: 100px">Lance:</label>
+							<div class="p-col">
+							<h:panelGroup>
+								<p:inputText id="nome" type="text"
+									value="#{pagLanceController.entity.valor}" />
+									<p:commandButton actionListener="#{pagLanceController.adicionar}"
+								value="BidIt" process="@form" update="@form" />
+							</h:panelGroup>
+							</div>
+							
+							
+						
+							<p:badge value="Prazo Final: #{pagLanceController.produto.tempoFim}" styleClass="p-mr-2"></p:badge>
+							
+
+						</div>
+
+
+						<p:accordionPanel widgetVar="basic">
+							<p:tab title="Descrição">
+								<p class="p-m-0">
+									<h:panelGrid>
+										<p:outputLabel
+											value="Empresa: #{pagLanceController.produto.empresa.nome}"></p:outputLabel>
+											<p:outputLabel
+											value="Categoria: #{pagLanceController.produto.categoria.label}"></p:outputLabel>
+										<p:outputLabel
+											value="Sobre: #{pagLanceController.produto.descricao}"></p:outputLabel>
+										
+
+									</h:panelGrid>
+								</p>
+							</p:tab>
+						</p:accordionPanel>
+					</h:panelGrid>
+				</p:card>
+			</h:form>
+
+		</h:body>
+
+	</iu:define>
+</iu:composition>
+</html>
