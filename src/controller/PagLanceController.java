@@ -36,9 +36,16 @@ public class PagLanceController extends Controller<Lance> implements Serializabl
 	
 	public void adicionar() {
 		
-			repo.adicionar(getEntity(),produto);
-			limpar();
-			Message.addInfoMessage("Lance registrado");
+			if(repo.adicionar(getEntity(),produto) != null) {
+				Message.addInfoMessage("Lance registrado");
+				limpar();
+			}
+			else {
+				Message.addInfoMessage("O valor do lance deve ser maior");
+				limpar();
+			}
+			
+			
 		
 		
 	}

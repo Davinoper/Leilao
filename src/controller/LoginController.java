@@ -32,7 +32,7 @@ public class LoginController implements Serializable {
 		}
 		limpar();
 		Message.addErrorMessage("Senha ou usuario invalidos");
-		return null;
+		return "/faces/login.xhtml?faces-redirect=true";
 		
 		
 	}

@@ -1,6 +1,5 @@
 package modelo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -18,13 +19,18 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String nome;
+
 	private String cpf;
+	
 	private String email;
+
 	private String senha;
 	private Perfil perfil;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
+
 	private String telefone;
 	@ManyToMany
 	private List<Produto> listaProduto;

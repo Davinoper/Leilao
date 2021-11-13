@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -27,7 +28,7 @@ public class EmpresaController extends Controller<Empresa> implements Serializab
 	 */
 	private static final long serialVersionUID = 2430920407443528283L;
 	private List<Empresa> listaEmpresa;
-	private Estado[] listaEstados;
+	private List<Estado> listaEstados;
 	
 	
 	
@@ -78,9 +79,10 @@ public class EmpresaController extends Controller<Empresa> implements Serializab
 		this.listaEmpresa = listaEmpresa;
 	}
 	
-	public Estado[] getListaEstados() {
+	public List<Estado> getListaEstados() {
+		
 		if(listaEstados == null) {
-			listaEstados = Estado.values();
+			listaEstados = Arrays.asList(Estado.values());
 		}
 		return listaEstados;
 		
@@ -102,7 +104,7 @@ public class EmpresaController extends Controller<Empresa> implements Serializab
 		setEntity(event.getObject());
 	}
 
-	
+
 	
 	
 }

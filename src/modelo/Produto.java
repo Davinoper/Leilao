@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Produto {
@@ -15,13 +17,18 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	private String nome;
 	private double valor;
+
 	private String descricao;
+
 	private Categoria categoria;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Empresa empresa;
+
 	private LocalDate tempoInit;
+
 	private LocalDate tempoFim;
 	private boolean vendido;
 	

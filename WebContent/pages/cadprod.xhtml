@@ -56,6 +56,7 @@
 									<p:outputLabel for="@next" value="Categoria:" />
 									<p:selectOneMenu id="categoria"
 										value="#{produtoController.entity.categoria}">
+										<f:selectItem itemLabel="Selecione ..."/>
 										<f:selectItems value="#{produtoController.listaCategoria}"
 											var="obj" itemLabel="#{obj.label}" />
 										<f:facet name="footer">
@@ -66,7 +67,7 @@
 						
 								
 									<p:outputLabel for="@next" value="Empresa:" />
-							<h:panelGroup>
+							<h:panelGroup id="pgEmp">
 							<p:inputText style="width:185px"
 						value="#{produtoController.entity.empresa.nome}" />
 									<p:commandButton icon="pi pi-search"
@@ -114,7 +115,7 @@
 
 
 
-							<p:button icon="pi pi-search" styleClass="ui-button-warning"
+							<p:button icon="pi pi-search" styleClass="ui-button-warning" process="@this" update="@form"
 								onclick="PF('dlg').show()" />
 						</h:panelGroup>
 
@@ -123,7 +124,7 @@
 
 					<p:dialog header="Consulta de Usuários" widgetVar="dlg"
 						minHeight="40" width="80%" showEffect="fade" maximizable="true"
-						modal="true">
+						modal="true" id="dlg1">
 						<div class="card" id="table">
 
 							<p:dataTable id="data" value="#{produtoController.listaProd}"
@@ -154,7 +155,7 @@
 
 									<p:commandButton value="Editar"
 										actionListener="#{produtoController.editar(obj.id)}"
-										styleClass="ui-button-raised ui-button-warning"
+										styleClass="ui-button-raised ui-button-warning" process="@none"
 										update="@form:pg1" onclick="PF('dlg').close()">
 
 									</p:commandButton>

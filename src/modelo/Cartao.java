@@ -1,15 +1,16 @@
 package modelo;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 
 @Entity
 public class Cartao extends FormaPagamento{
 
+	
 	private String numero;
-	private String vencimento;
+	private LocalDate vencimento;
 	private String ccv;
 	private String nome;
 	private BandeiraCartao tipo;
@@ -29,10 +30,10 @@ public class Cartao extends FormaPagamento{
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	public String getVencimento() {
+	public LocalDate getVencimento() {
 		return vencimento;
 	}
-	public void setVencimento(String vencimento) {
+	public void setVencimento(LocalDate vencimento) {
 		this.vencimento = vencimento;
 	}
 	public String getCcv() {

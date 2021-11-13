@@ -97,6 +97,7 @@
 										<p:outputLabel for="@next" value="Estado:" />
 										<p:selectOneMenu id="option"
 											value="#{usuarioController.entity.endereco.estado}">
+											<f:selectItem itemLabel="Selecione ..."/>
 											<f:selectItems value="#{empresaController.listaEstados}"
 												var="obj" itemLabel="#{obj.label}" />
 											<f:facet name="footer">
