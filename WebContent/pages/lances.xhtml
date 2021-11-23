@@ -11,13 +11,20 @@
 <h:body>
 <iu:composition template="/template.xhtml">
 		<iu:define name="content">
-
+<h:form>
 		<div class="card" id="table">
 
 							<p:dataTable id="data" value="#{lancesController.listaLances}"
 								var="obj" rowKey="#{obj.id}" selectionMode="single">
 								<f:facet name="header">
                 				Todos os lances
+                				 <div class="iu-inputgroup">
+		                                <p:inputText id="itFiltro" 
+		                                	value="#{lancesController.filtro}"/>        
+		                                <p:commandButton value="Pesquisar"
+											actionListener="#{lancesController.pesquisar}"
+											process="@this itFiltro" update="data"/> 
+		                            </div>
             					</f:facet>
 
 								<p:column headerText="Id">
@@ -32,17 +39,14 @@
 								<p:column headerText="Produto">
 									<h:outputText value="#{obj.prod.nome}" />
 								</p:column>
-									<p:column headerText="Vendido">
-									<h:outputText value="#{obj.prod.vendido}" />
+									<p:column headerText="Ganhador">
+									<h:outputText value="#{obj.ganhador}" />
 								</p:column>
 								
 								<p:column headerText="Usuario">
 									<h:outputText value="#{obj.usuario.nome}" />
 								</p:column>
 								
-								<p:column headerText="Cancelado">
-									<h:outputText value="#{obj.cancelado}" />
-								</p:column>
 								
 
 								
@@ -53,6 +57,7 @@
 
 
 						</div>
+						</h:form>
 						</iu:define>
 						</iu:composition>
 						</h:body>

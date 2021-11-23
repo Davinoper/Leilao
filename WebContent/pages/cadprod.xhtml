@@ -37,55 +37,71 @@
 								<p:inputText id="email" type="text"
 									value="#{produtoController.entity.descricao}" />
 							</div>
-							
-								
-										<p:outputLabel value="Começo" />
-										<p:datePicker id="tempinit"
-											value="#{produtoController.entity.tempoInit}" showIcon="true" />
-									
 
-					
-										<p:outputLabel value="Prazo" />
-										<p:datePicker id="tempofim"
-											value="#{produtoController.entity.tempoFim}" showIcon="true" />
-					
+
+							<p:outputLabel value="Começo" />
+							<p:datePicker id="tempinit"
+								value="#{produtoController.entity.tempoInit}" showIcon="true" />
+
+
+
+							<p:outputLabel value="Prazo" />
+							<p:datePicker id="tempofim"
+								value="#{produtoController.entity.tempoFim}" showIcon="true" />
+
 
 						</div>
-					
-							
-									<p:outputLabel for="@next" value="Categoria:" />
-									<p:selectOneMenu id="categoria"
-										value="#{produtoController.entity.categoria}">
-										<f:selectItem itemLabel="Selecione ..."/>
-										<f:selectItems value="#{produtoController.listaCategoria}"
-											var="obj" itemLabel="#{obj.label}" />
-										<f:facet name="footer">
-											<p:divider styleClass="p-mt-0" />
-											<h:outputText value="9 options" style="font-weight:bold;" />
-										</f:facet>
-									</p:selectOneMenu>
-						
-								
-									<p:outputLabel for="@next" value="Empresa:" />
-							<h:panelGroup id="pgEmp">
+
+
+
+
+
+
+
+
+						<p:outputLabel for="@next" value="Categoria:" />
+						<p:selectOneMenu id="categoria"
+							value="#{produtoController.entity.categoria}">
+							<f:selectItem itemLabel="Selecione ..." />
+							<f:selectItems value="#{produtoController.listaCategoria}"
+								var="obj" itemLabel="#{obj.label}" />
+							<f:facet name="footer">
+								<p:divider styleClass="p-mt-0" />
+								<h:outputText value="9 options" style="font-weight:bold;" />
+							</f:facet>
+						</p:selectOneMenu>
+
+
+						<p:outputLabel for="@next" value="Empresa:" />
+						<h:panelGroup id="pgEmp">
 							<p:inputText style="width:185px"
-						value="#{produtoController.entity.empresa.nome}" />
-									<p:commandButton icon="pi pi-search"
-							styleClass="ui-button-warning"
-							actionListener="#{produtoController.abrirEmpresaListing}">
-							<p:ajax event="dialogReturn"
-								listener="#{produtoController.obterEmpresaListing}"
-							    update="@form" />
-						</p:commandButton>
-						
-						</h:panelGroup>
-					
-						<div>
-						<p:outputLabel for="@next" value="Imagem:" />
-						 <p:fileUpload listener="#{upload.handleFileUpload}" mode="advanced" dragDropSupport="true" style="margin-bottom:20px"
-                      update="growl" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-						</div>
+								value="#{produtoController.entity.empresa.nome}" />
+							<p:commandButton icon="pi pi-search"
+								styleClass="ui-button-warning"
+								actionListener="#{produtoController.abrirEmpresaListing}">
+								<p:ajax event="dialogReturn"
+									listener="#{produtoController.obterEmpresaListing}"
+									update="@form" />
+							</p:commandButton>
 
+						</h:panelGroup>
+
+						<h:form enctype="multipart/form-data" > 
+					
+					<p:outputLabel value="Imagem:"/>
+					<p:fileUpload id="fileUpload"
+								  listener="#{produtoController.upload}" 
+								  mode="advanced" 
+								  update="fileUpload @form"
+								  label="Selecione uma foto ..."
+								  global="false">
+					</p:fileUpload>
+				     <p:growl id="messages" showDetail="true"/>    
+				</h:form>
+						
+						
+						
+						
 						<h:panelGroup columns="4">
 
 
@@ -103,8 +119,8 @@
 								actionListener="#{produtoController.altera}" process="@form"
 								update="data pg1" />
 
-							<p:commandButton value="Remover"
-								actionListener="#{produtoController.remove}"
+							<p:commandButton value="Desativar"
+								actionListener="#{produtoController.desativar}"
 								styleClass="ui-button-raised ui-button-danger" process="@form"
 								update="@form data "></p:commandButton>
 
@@ -115,14 +131,14 @@
 
 
 
-							<p:button icon="pi pi-search" styleClass="ui-button-warning" process="@this" update="@form"
-								onclick="PF('dlg').show()" />
+							<p:button icon="pi pi-search" styleClass="ui-button-warning"
+								process="@this" update="@form" onclick="PF('dlg').show()" />
 						</h:panelGroup>
 
 
 					</h:panelGrid>
 
-					<p:dialog header="Consulta de Usuários" widgetVar="dlg"
+					<p:dialog header="Consulta de Produtos" widgetVar="dlg"
 						minHeight="40" width="80%" showEffect="fade" maximizable="true"
 						modal="true" id="dlg1">
 						<div class="card" id="table">
@@ -130,7 +146,7 @@
 							<p:dataTable id="data" value="#{produtoController.listaProd}"
 								var="obj" rowKey="#{obj.id}" selectionMode="single">
 								<f:facet name="header">
-                Informações de usuário
+                Informações de produto
             </f:facet>
 
 								<p:column headerText="Id">
@@ -149,14 +165,14 @@
 									<h:outputText value="#{obj.categoria.label}" />
 								</p:column>
 								<p:column headerText="Empresa">
-								<h:outputText value="#{obj.empresa.nome}" />
-							</p:column>
+									<h:outputText value="#{obj.empresa.nome}" />
+								</p:column>
 								<p:column headerText="Ações">
 
 									<p:commandButton value="Editar"
 										actionListener="#{produtoController.editar(obj.id)}"
-										styleClass="ui-button-raised ui-button-warning" process="@none"
-										update="@form:pg1" onclick="PF('dlg').close()">
+										styleClass="ui-button-raised ui-button-warning"
+										process="@none" update="@form:pg1" onclick="PF('dlg').close()">
 
 									</p:commandButton>
 

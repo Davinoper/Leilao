@@ -8,33 +8,43 @@
 <h:head>
 	<title>Meus Lances</title>
 </h:head>
-<h:body>
-	<h:form>
-		<iu:composition template="/template.xhtml">
-			<iu:define name="content">
+
+<iu:composition template="/template.xhtml">
+	<iu:define name="content">
+		<h:body>
+			<h:form id="geral">
+
 				<p:growl id="growl" showDetail="false" />
+
+
+
 				<p:card
-					style="width:30%; margin-bottom: 2em; justify-content:center;align-items: center;margin-left:5%;margin-top:5%">
+					style="width:40%; margin-bottom: 2em; justify-content:center;align-items: center;margin-left:5%;margin-top:5%">
 					<h:panelGroup>
 						<p:dataTable id="dtpg" value="#{cartaoController.listaCartao}"
-							var="obj" >
+							var="obj">
 							<f:facet name="header">Formas de pagamento</f:facet>
 
-							
+
 							<p:column headerText="Nome">
-								
+
 								<h:outputText value="#{obj.nome}" />
 							</p:column>
 							<p:column headerText="Numero">
-							
+
 								<h:outputText value="#{obj.numero}" />
 							</p:column>
 							<p:column headerText="Vencimento">
-							
 								<h:outputText value="#{obj.vencimento}" />
 							</p:column>
-						
-							
+							<p:column headerText="ações">
+
+								<p:commandButton value="Selecionar"
+									actionListener="#{cartaoController.selecionar(obj)}"
+									process="@this" update="@this @form:growl @form:dgl2" />
+							</p:column>
+
+
 
 						</p:dataTable>
 
@@ -54,12 +64,13 @@
 
 
 
-
 				<p:dialog header="Cadastro Cartão" widgetVar="dlg" id="dgl"
-					minHeight="40" width="80%" showEffect="fade" maximizable="true"
+					minHeight="50" width="80%" showEffect="fade" maximizable="true"
 					modal="true">
 
-					<h:form id="formDgl">
+					
+
+
 
 						<h:panelGrid id="pg1">
 							<div class="p-field p-grid">
@@ -107,18 +118,18 @@
 							<h:panelGroup>
 								<p:commandButton value="Adicionar"
 									styleClass="ui-button-raised ui-button-success"
-									actionListener="#{cartaoController.adicionar}"
-									process="formDgl" update="formDgl" />
+									actionListener="#{cartaoController.adicionarCard}"
+									process="@this dgl" update="@form dgl" />
 
 								<p:commandButton value="Limpar"
 									styleClass="ui-button-raised ui-button-info"
 									actionListener="#{usuarioController.limpar}" process="@this"
-									update="formDgl" />
+									update="@form" />
 							</h:panelGroup>
 
 						</h:panelGrid>
 
-					</h:form>
+					
 				</p:dialog>
 
 
@@ -130,52 +141,74 @@
 
 
 				<p:card
-					style="width:50%; margin-bottom: 2em; justify-content:center;align-items: center;margin-left:5%;margin-top:5%">
+					style="width:50%; margin-bottom: 2em; justify-content:center;align-items: center;margin-left:5%;margin-top:1%">
 
 
-					<p:dataTable id="data" value="#{meusLancesController.listaLances}"
+					<p:dataTable id="data" value="#{cartaoController.listaProduto}"
 						var="obj" rowKey="#{obj.id}" selectionMode="single">
 						<f:facet name="header">
                 				Produtos
             					</f:facet>
 
-						<p:column headerText="Id">
-							<h:outputText value="#{obj.id}" />
+						<p:column headerText="Produto">
+							<h:outputText value="#{obj.prod.nome}" />
 						</p:column>
-						<p:column headerText="Horario">
-							<h:outputText value="#{obj.tempo}" />
+						<p:column headerText="Descrição">
+							<h:outputText value="#{obj.prod.descricao}" />
+						</p:column>
+						<p:column headerText="Categoria">
+							<h:outputText value="#{obj.prod.categoria}" />
 						</p:column>
 						<p:column headerText="Valor">
 							<h:outputText value="#{obj.valor}" />
 						</p:column>
-						<p:column headerText="Produto">
-							<h:outputText value="#{obj.prod.nome}" />
-						</p:column>
-						<p:column headerText="Ganhador">
-							<h:outputText value="#{obj.ganhador}" />
-						</p:column>
 						<p:column headerText="Ações">
-							<p:commandButton value="cancelar" process="@all" upddate="@all"
-								actionListener="#{meusLancesController.cancelar(obj)}">
-								<p:commandButton value="comprar"
-									rendered="#{obj.ganhador == true}" />
+							<p:commandButton styleClass="rounded-button ui-button-danger"
+								value="X"
+								actionListener="#{cartaoController.removeCarrinho(obj)}"
+								process="@this" update="data @form:total"></p:commandButton>
 
 
-
-							</p:commandButton>
 						</p:column>
 
 
 					</p:dataTable>
+					
+					<p:button type="button" style="margin-top:10px; justify:rigth" value="finalizar pedido" onclick="PF('dlg2').show()" process="data dgl2" update="dgl2"></p:button>
+					<h:outputText id="total" value="  Total: R$ #{cartaoController.valorTot}"/>	
+					
 				</p:card>
 
 
 
+				<p:dialog header="Confirmação" widgetVar="dlg2" id="dgl2"
+					minHeight="50" width="40%" showEffect="fade" maximizable="true"
+					modal="true">
+					
+					<p:panelGrid columns="2">
+					<p:column>
+						<h:outputText value="Cartão:" />
+						<h:outputText value=" Nome: #{cartaoController.entity.nome} , Numero: #{cartaoController.entity.numero}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="Valor:" />
+						<h:outputText value="R$ #{cartaoController.valorTot}"/>
+					</p:column>
+					</p:panelGrid>
+					
+					</p:dialog>
+			
 
 
-			</iu:define>
-		</iu:composition>
-	</h:form>
-</h:body>
+
+
+				
+
+
+
+			</h:form>
+		</h:body>
+	</iu:define>
+</iu:composition>
 </html>
 

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<header> </header>
+
+<h:body>
+	<h:form>
+		<h:messages infoStyle="color:green" errorStyle="color:red" />
+		
+		<h1>Recuperar senha</h1>
+		<h:panelGrid columns="1">
+			<h:outputLabel value="Código:"   />
+			<h:inputText value="#{recuperaSenhaController.codigo}" />
+			<h:outputLabel value="Nova senha:"   />
+			<h:inputSecret value="#{recuperaSenhaController.senha}"/>
+		</h:panelGrid>
+		<h:commandButton value="enviar" actionListener="#{recuperaSenhaController.alterarSenha}"/>
+	</h:form>
+</h:body>
+
+</html>

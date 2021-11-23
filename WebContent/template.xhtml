@@ -49,6 +49,9 @@
     	<p:commandLink value="Cadastro Usuário" action="/faces/pages/cadusu.xhtml?faces-redirect=true" rendered="#{templateController.usuarioLogado.perfil.id  != 2}"/>
     	</div>
     	<div style="margin-top:10px">
+    	<p:commandLink value="Cadastro categoria" action="/faces/pages/cadcategoria.xhtml?faces-redirect=true" />
+    	</div>
+    	<div style="margin-top:10px">
     	<p:commandLink value="Produtos" action="/faces/pages/produtos.xhtml?faces-redirect=true"/>
     	</div>
     	<div style="margin-top:10px">
@@ -59,6 +62,9 @@
     	</div>
     	<div style="margin-top:10px">
     	<p:commandLink value="Meu Perfil" action="/faces/pages/perfil.xhtml?faces-redirect=true" />
+    	</div>
+    	<div style="margin-top:10px">
+    	<p:commandLink value="Carrinho" action="/faces/pages/pagamento.xhtml?faces-redirect=true" />
     	</div>
     		<div style="margin-top:10px">
     	<p:commandLink value="Lista de Desejos" action="/faces/pages/listadesejos.xhtml?faces-redirect=true" />
@@ -85,14 +91,6 @@
 
 </iu:insert>
     
-
-<footer>
-<nav class="navbar fixed-bottom navbar-dark bg-dark" >
-  <div class="container-fluid" >
-    <a class="navbar-brand" href="#">Bid Club</a>
-  </div>
-</nav>
-</footer>
 
 
 

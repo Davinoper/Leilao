@@ -128,8 +128,8 @@
 								actionListener="#{usuarioController.altera}" process="@form"
 								update="data pg1" />
 
-							<p:commandButton value="Remover"
-								actionListener="#{usuarioController.remove}"
+							<p:commandButton value="Desativar"
+								actionListener="#{usuarioController.desativar}"
 								styleClass="ui-button-raised ui-button-danger" process="@form"
 								update="@form data "></p:commandButton>
 
@@ -145,7 +145,7 @@
 						</h:panelGroup>
 					</h:panelGrid>
 
-					<p:dialog header="Consulta de Usuários" widgetVar="dlg"
+					<p:dialog header="Consulta de Usuários" id="dlg" widgetVar="dlg"
 						minHeight="40" width="80%" showEffect="fade" maximizable="true"
 						modal="true">
 						<div class="card" id="table">
@@ -171,12 +171,17 @@
 								<p:column headerText="Senha">
 									<h:outputText value="#{obj.senha}" />
 								</p:column>
+								<p:column headerText="Desativo">
+									<h:outputText value="#{obj.desativo}" />
+								</p:column>
+								
+								
 								<p:column headerText="Ações">
 
 									<p:commandButton value="Editar"
 										actionListener="#{usuarioController.editar(obj.id)}"
 										styleClass="ui-button-raised ui-button-warning"
-										update="@form:pg1" onclick="PF('dlg').close()">
+										process="@form:dlg" update="@none" onclick="PF('dlg').close()">
 
 									</p:commandButton>
 

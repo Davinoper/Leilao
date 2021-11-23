@@ -24,11 +24,13 @@
                 <h:inputSecret id="txSenha" value="#{loginController.usu.senha}" required="true" label="Senha"/>
                 
             </h:panelGrid >
-            <h:panelGrid columns="2">
+            <h:panelGrid columns="3">
                     <p:commandButton value="Logar" action="#{loginController.logar}" ajax="false"/>
                   
                     <p:commandButton value="Cadastre-se" styleClass="ui-button-outlined ui-button-danger" action="/faces/cadastro.xhtml?faces-redirect=true" process="@this" update="@none"/>
                     </h:panelGrid>
+                    
+                    <p:commandLink value="Esqueceu a senha" action="/faces/esqueceusenha.xhtml?faces-redirect=true" process="@this" update="@none"></p:commandLink>
                     
                 </p:panel>
             </div>

@@ -16,8 +16,15 @@
 			<p:growl id="growl" showDetail="false" />
 				<div class="card">
 					<h1>Produtos</h1>
-					<p:carousel value="#{produtoController.listaProd}" var="product"
-						responsive="true">
+					 <div class="iu-inputgroup">
+		                                <p:inputText id="itFiltro" 
+		                                	value="#{lanceController.filtro}"/>        
+		                                <p:commandButton value="Pesquisar"
+											actionListener="#{lanceController.pesquisar}"
+											process="@this itFiltro" update="data"/> 
+		                            </div>
+					<p:carousel value="#{lanceController.listaprod}" var="product"
+						id="data" responsive="true">
 						<div class="product">
 						
 							<div class="product-grid-item p-p-5">
@@ -30,26 +37,21 @@
 											class="product-category">#{product.categoria.label}</span>
 											
 									</div>
-									<p:commandButton icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary ui-button-outlined" actionListener="#{lanceController.addOnfav(product)}" process="@this" update="@form"/>
+									<p:commandButton icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary ui-button-outlined" actionListener="#{lanceController.addOnfav(product)}" disabled="#{product.desativo == true}" process="@this" update="@form"/>
 								</div>
 								<div class="product-grid-item-content">
 									<img
 										src="https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg"
 										width="60%px" />
 									
-									<p:commandButton value="Bid" action="#{lanceController.enviarProduto(product)}" />
+									<p:commandButton value="Bid" action="#{lanceController.enviarProduto(product)}" disabled="#{product.desativo == true}" />
 										
 								
 									
 									<div class="product-name">#{product.nome}</div>
 									<div class="product-description">#{product.descricao}</div>
 								</div>
-								<div class="product-grid-item-bottom">
-									<h:outputText value="#{product.valor}"
-										styleClass="product-price">
-										<f:convertNumber currencySymbol="R$" type="currency" />
-									</h:outputText>
-								</div>
+								
 							</div>
 						</div>
 

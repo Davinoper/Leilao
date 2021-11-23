@@ -38,10 +38,7 @@
 									<h:outputText value="#{obj.ganhador}" />
 								</p:column>
 								<p:column headerText="Ações">
-									<p:commandButton value="cancelar" process="@all" upddate="@all" actionListener="#{meusLancesController.cancelar(obj)}">
-									<p:commandButton value="comprar" action="/faces/pages/pagamento.xhtml?faces-redirect=true" rendered="#{obj.ganhador == true}"/>
-							
-									
+									<p:commandButton value="cancelar" process="@form" upddate="@form" actionListener="#{meusLancesController.cancelar(obj)}">
 									
 									</p:commandButton>
 								</p:column>

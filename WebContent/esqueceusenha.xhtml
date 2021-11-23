@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<header> </header>
+
+<h:body>
+	<h:form>
+		<h:messages infoStyle="color:green" errorStyle="color:red" />
+		<h1>Informe o email:</h1>
+		<h:panelGrid columns="2">
+		
+		<h:panelGroup>
+			<h:inputText value="#{esqueceuSenhaController.email}" />
+			<h:commandButton value="Enviar" actionListener="#{esqueceuSenhaController.enviarEmail}" />
+		</h:panelGroup>
+			
+		<h:commandLink value="Esqueceu a senha" action="/faces/recuperasenha.xhtml?faces-redirect=true" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+
+</html>

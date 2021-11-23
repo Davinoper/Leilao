@@ -69,17 +69,7 @@
 						</div>
 
 
-						<div class="p-formgrid p-grid">
-							<div class="p-field p-col-12 p-md-4">
-								<p:outputLabel value="Estado:" for="@next" />
-								<p:autoComplete value="#{empresaController.entity.endereco.estado}"  var="obj" itemLabel="#{obj.label}"
-									itemValue="#{obj}"
-									completeMethod="#{empresaController.listaEstados}"
-									dropdown="true" forceSelection="true" minQueryLength="1"
-									maxResults="3" moreText="Existem mais estados ..." />
-								
-							</div>
-						</div>
+						
 
 						<p:outputLabel for="@next" value="Estado:" />
 						<p:selectOneMenu id="option"
@@ -114,8 +104,8 @@
 								actionListener="#{empresaController.altera}" process="@form"
 								update="data pg1" />
 
-							<p:commandButton value="Remover"
-								actionListener="#{empresaController.remove}"
+							<p:commandButton value="Desativar"
+								actionListener="#{empresaController.desativar}"
 								styleClass="ui-button-raised ui-button-danger" process="@form"
 								update="@form data "></p:commandButton>
 
@@ -130,7 +120,7 @@
 						</h:panelGroup>
 					</h:panelGrid>
 
-					<p:dialog header="Consulta de Usuários" widgetVar="dlg"
+					<p:dialog header="Consulta de empresas" widgetVar="dlg"
 						minHeight="40" width="80%" showEffect="fade" maximizable="true"
 						modal="true">
 						<div class="card" id="table">
@@ -138,7 +128,7 @@
 							<p:dataTable id="data" value="#{empresaController.listaEmpresa}"
 								var="obj" rowKey="#{obj.id}" selectionMode="single">
 								<f:facet name="header">
-                Informações de usuário
+                Informações de empresa
             </f:facet>
 
 								<p:column headerText="Id">
