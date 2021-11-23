@@ -1,7 +1,8 @@
 package controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -26,23 +27,57 @@ public class LanceController extends Controller<Lance> implements Serializable{
 	 */
 	private static final long serialVersionUID = 5204171013384794530L;
 	private Produto produto;
-	LanceRepository repo = new LanceRepository();
-	private Usuario usu ;
-	
-	
+	private String filtro;
+	private List<Produto> listaprod;
+
 	
 	public String enviarProduto(Produto p) {
+		
 		ProdutoRepository repoProd = new ProdutoRepository();
 		Produto prod = repoProd.obterUm(p.getId());
-
 		Session session = Session.getInstance();
 		session.set("prodTemp",prod);
-
+		
+		
 		return "/faces/pages/lance.xhtml?faces-redirect=true";
 	}
 	
 	
+	public void pesquisar(){
+		ProdutoRepository repo = new ProdutoRepository();
+		try {
+			if(filtro.isEmpty()) {
+				setListaprod(repo.obterTodos(Produto.class));
+			}
+			else {
+				setListaprod(repo.findByNome(filtro));
+				limpar();
+			}
+			
+		} catch (RepositoryException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
+	
+	public void desativaPassado() {
+		ProdutoRepository repo = new ProdutoRepository();
+		try {
+			List<Produto> lista =repo.obterTodos(Produto.class);
+			for(int i=0; i < lista.size() ;i++) {
+				if(LocalDate.now().isAfter(lista.get(i).getTempoFim())) {
+					lista.get(i).setDesativo(true);
+					repo.altera(lista.get(i));
+				}
+			}
+		} catch (RepositoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 
 	@Override
@@ -77,34 +112,54 @@ public class LanceController extends Controller<Lance> implements Serializable{
 
 	
 	public void addOnfav(Produto prod) {
+		Usuario usu = (Usuario) Session.getInstance().get("usuarioLogado");
 		UsuarioRepository repo = new UsuarioRepository();
-		getUsu().getListaProduto().add(prod);
-		try {
-			repo.adicionar(getUsu());
-		} catch (RepositoryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!usu.getListaProduto().contains(prod)) {
+			usu.getListaProduto().add(prod);
+			repo.altera(usu);
+			Message.addInfoMessage("Adicionado a lista de desejos!");
 		}
-		Message.addInfoMessage("Adicionado a lista de desejos!");
+		else {
+			Message.addInfoMessage("Este item ja foi adicionado.");
+		}
+		
 		
 	}
 	
 	
-	
-	public Usuario getUsu() {
-		if(usu == null) {
-			setUsu((Usuario) Session.getInstance().get("usuarioLogado"));
+
+
+	public List<Produto> getListaprod() {
+		LanceRepository repoBid = new LanceRepository();
+		ProdutoRepository repo = new ProdutoRepository();
+		repoBid.confereGanhador();
+		desativaPassado();
+		if (listaprod == null) {
+			try {
+				listaprod = repo.obterTodos(Produto.class);
+			} catch (RepositoryException e) {
+				e.printStackTrace();
+			}
 		}
-	
-		if(usu.getListaProduto() == null) {
-			usu.setListaProduto(new ArrayList<Produto>());
-		}
-		
-		return usu;
+		return listaprod;
 	}
 
-	public void setUsu(Usuario usu) {
-		this.usu = usu;
+
+
+
+
+	public void setListaprod(List<Produto> listaprod) {
+		this.listaprod = listaprod;
+	}
+
+
+	public String getFiltro() {
+		return filtro;
+	}
+
+
+	public void setFiltro(String filtro) {
+		this.filtro = filtro;
 	}
 	
 	

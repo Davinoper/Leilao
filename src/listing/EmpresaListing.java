@@ -33,7 +33,13 @@ public class EmpresaListing extends Listing<Empresa>{
 		
 		EmpresaRepository repo = new EmpresaRepository();
 		try {
-			setList(repo.obterPorNome(filtro));
+			if(filtro.isEmpty()) {
+				setList(repo.obterTodos(Empresa.class));
+			}
+			else {
+				setList(repo.obterPorNome(filtro));
+			}
+			
 		} catch (Exception e) {
 			setList(new ArrayList<Empresa>());
 		}

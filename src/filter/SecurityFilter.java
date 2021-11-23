@@ -45,11 +45,15 @@ public class SecurityFilter implements Filter {
 		if (usuario == null) {
 			((HttpServletResponse) response).sendRedirect("/Leilao/faces/login.xhtml");
 		} else {
-			chain.doFilter(request, response);
-			return;
+			if (usuario.getPerfil().getPaginasComPermissao().contains(endereco)) {
+				chain.doFilter(request, response);
+				return;
+			} else 
+				((HttpServletResponse) response).sendRedirect("/Leilao/faces/pages/produtos.xhtml");
+		}
 		}
 		
-	}
+	
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {

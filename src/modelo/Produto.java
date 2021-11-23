@@ -8,8 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 
 @Entity
 public class Produto {
@@ -17,20 +17,25 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	@NotNull
 	private String nome;
 	private double valor;
-
+	
 	private String descricao;
 
+	@NotNull
 	private Categoria categoria;
+	
+	@NotNull
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Empresa empresa;
 
 	private LocalDate tempoInit;
 
+	@NotNull
 	private LocalDate tempoFim;
 	private boolean vendido;
+	private boolean desativo;
 	
 	
 	public int getId() {
@@ -98,6 +103,12 @@ public class Produto {
 		return "Produto [id=" + id + ", nome=" + nome + ", valor=" + valor + ", descricao=" + descricao + ", categoria="
 				+ categoria + ", empresa=" + empresa + ", tempoInit=" + tempoInit + ", tempoFim=" + tempoFim
 				+ ", vendido=" + vendido + "]";
+	}
+	public boolean isDesativo() {
+		return desativo;
+	}
+	public void setDesativo(boolean desativo) {
+		this.desativo = desativo;
 	}
 	
 	

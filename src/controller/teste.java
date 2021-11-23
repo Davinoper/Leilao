@@ -1,39 +1,34 @@
 package controller;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import Repository.LanceRepository;
+import Repository.ProdutoRepository;
+import Repository.UsuarioRepository;
+import application.Message;
 import application.RepositoryException;
-import modelo.Lance;
+import application.Session;
+import modelo.Produto;
+import modelo.Usuario;
 
 public class teste {
 
 	public static void main(String[] args) {
-		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Leilao");
-		
-		EntityManager em = emf.createEntityManager();
-		
-		LanceRepository repo = new LanceRepository();
-		
-		
-		List<Lance> lista = null;
+		ProdutoRepository repoP = new ProdutoRepository();
+		Usuario usu = (Usuario) Session.getInstance().get("usuarioLogado");
+		Produto prod = null;
 		try {
-			lista = repo.obterTodos(Lance.class);
+			prod = repoP.findById(21);
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		for(int i =0; i < lista.size(); i++ ) {
-			System.out.println(lista.get(i));
+		UsuarioRepository repo = new UsuarioRepository();
+		if(!usu.getListaProduto().contains(prod)) {
+			usu.getListaProduto().add(prod);
+			repo.altera(usu);
+			System.out.println("Adicionado a lista de desejos!");
 		}
-		
-
+		else {
+			System.out.println("Este item ja foi adicionado.");
+		}
 	}
 
 }

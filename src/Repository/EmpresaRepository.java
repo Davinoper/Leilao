@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import application.JpaUtil;
 import application.RepositoryException;
 import modelo.Empresa;
+import modelo.Produto;
 
 public class EmpresaRepository extends Repository<Empresa>{
 
@@ -40,6 +41,27 @@ public class EmpresaRepository extends Repository<Empresa>{
 			
 			
 			return emp;
+		}
+	 
+		
+		
+		public Empresa desativar(Empresa empresa) {
+			Empresa emp = null;
+			if(empresa.isDesativo() == false) {
+				empresa.setDesativo(true);
+			}
+			else {
+				
+				empresa.setDesativo(false);
+			}
+			
+			em.getTransaction().begin();
+			emp = em.merge(empresa);
+			em.getTransaction().commit();
+			
+			return emp;
+			
+			
 		}
 	 
 }

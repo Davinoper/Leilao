@@ -10,6 +10,8 @@
 		<class>modelo.Pagamento</class>
 		<class>modelo.FormaPagamento</class>
 		<class>modelo.Cartao</class>
+		<class>modelo.Category</class>
+		<class>modelo.RecuperaSenha</class>
 	
 	<properties>
 			<!-- DB Driver -->

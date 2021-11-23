@@ -10,8 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 
 
 @Entity
@@ -20,22 +22,29 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NotEmpty
 	private String nome;
 
+	@NotEmpty
 	private String cpf;
-	
+	@NotEmpty
+	@Email
 	private String email;
 
+	@NotEmpty
 	private String senha;
+	@NotNull
 	private Perfil perfil;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 
+	@NotEmpty
 	private String telefone;
 	@ManyToMany
 	private List<Produto> listaProduto;
 	@OneToMany
 	private List<FormaPagamento> listaFormasPagamento;
+	private boolean desativo;
 	
 	
 	
@@ -108,6 +117,12 @@ public class Usuario {
 	}
 	public void setListaFormasPagamento(List<FormaPagamento> listaFormasPagamento) {
 		this.listaFormasPagamento = listaFormasPagamento;
+	}
+	public boolean isDesativo() {
+		return desativo;
+	}
+	public void setDesativo(boolean desativo) {
+		this.desativo = desativo;
 	}
 	
 	

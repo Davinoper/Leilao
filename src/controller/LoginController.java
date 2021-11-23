@@ -24,10 +24,16 @@ public class LoginController implements Serializable {
 	
 	public String logar() {
 		repo = new UsuarioRepository();
-		Usuario usuarioLogado = repo.validaLogin(usu);
-		if(usuarioLogado != null) {
+		Usuario usuarioLogado = null;
+		try {
+			usuarioLogado = repo.validaLogin(usu);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(usuarioLogado != null && usuarioLogado.isDesativo() == false) {
 			Session.getInstance().set("usuarioLogado", usuarioLogado);
-			return "/faces/template.xhtml?faces-redirect=true";
+			return "/faces/pages/produtos.xhtml?faces-redirect=true";
 			
 		}
 		limpar();

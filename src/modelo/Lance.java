@@ -20,7 +20,6 @@ public class Lance {
 	private Produto prod;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
-	private boolean cancelado;
 	private boolean ganhador;
 	
 	public int getId() {
@@ -56,16 +55,11 @@ public class Lance {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public boolean isCancelado() {
-		return cancelado;
-	}
-	public void setCancelado(boolean cancelado) {
-		this.cancelado = cancelado;
-	}
+	
 	@Override
 	public String toString() {
 		return "Lance [id=" + id + ", tempo=" + tempo + ", valor=" + valor + ", prod=" + prod + ", usuario=" + usuario
-				+ ", cancelado=" + cancelado + "]";
+				 + "]";
 	}
 	public boolean isGanhador() {
 		return ganhador;

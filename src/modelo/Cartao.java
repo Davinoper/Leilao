@@ -48,6 +48,11 @@ public class Cartao extends FormaPagamento{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	@Override
+	public String toString() {
+		return "Cartao [numero=" + numero + ", vencimento=" + vencimento + ", ccv=" + ccv + ", nome=" + nome + ", tipo="
+				+ tipo + "]";
+	}
 	
 	
 	

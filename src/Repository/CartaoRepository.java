@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import application.JpaUtil;
 import application.RepositoryException;
 import modelo.Cartao;
-import modelo.Cartao;
+import modelo.FormaPagamento;
+import modelo.Usuario;
 
 public class CartaoRepository extends Repository<Cartao>{
 	
@@ -42,6 +44,26 @@ public class CartaoRepository extends Repository<Cartao>{
 			
 			return car;
 		}
+	 
 	
+	 public Cartao obterPorNumero(String numero) throws RepositoryException {
+			List<Cartao> lista = obterTodos(Cartao.class);
+			
+			for(int i=0; i < lista.size(); i++) {
+				if(lista.get(i).getNumero().equals(numero)) {
+					return lista.get(i);
+				}
+			}
+			return null;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
-}
+

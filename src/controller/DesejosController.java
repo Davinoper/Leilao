@@ -21,7 +21,7 @@ public class DesejosController extends Controller<Usuario> implements Serializab
 	 * 
 	 */
 	private static final long serialVersionUID = -3219101282094400713L;
-
+	private List<Produto> listaProduto;
 
 	public String enviarProduto(Produto p) {
 		ProdutoRepository repoProd = new ProdutoRepository();
@@ -35,9 +35,15 @@ public class DesejosController extends Controller<Usuario> implements Serializab
 	
 	
 	public List<Produto> getListaProduto(){
-		List<Produto> lista = getEntity().getListaProduto();
+		setListaProduto(getEntity().getListaProduto());
 		
-		return lista;
+		
+		return listaProduto;
+	}
+	
+	public void setListaProduto(List<Produto> listaProduto) {
+		this.listaProduto = listaProduto;
+		
 	}
 	
 	public void removeLista(Produto produto) {

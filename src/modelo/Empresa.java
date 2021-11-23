@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -15,13 +16,17 @@ public class Empresa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotNull
 	private String nome;
 	
+	@NotNull
 	private String cnpj;
 	
+	@NotNull
 	private String telefone;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
+	private boolean desativo;
 	
 	public Integer getId() {
 		return id;
@@ -60,6 +65,12 @@ public class Empresa {
 	public String toString() {
 		return "Empresa [id=" + id + ", nome=" + nome + ", cnpj=" + cnpj + ", telefone=" + telefone + ", endereco="
 				+ endereco + "]";
+	}
+	public boolean isDesativo() {
+		return desativo;
+	}
+	public void setDesativo(boolean desativo) {
+		this.desativo = desativo;
 	}
 	
 	

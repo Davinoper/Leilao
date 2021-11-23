@@ -1,8 +1,10 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -18,7 +20,6 @@ import application.RepositoryException;
 import listing.EmpresaListing;
 import modelo.Empresa;
 import modelo.Estado;
-import modelo.Produto;
 
 @Named
 @ViewScoped
@@ -89,6 +90,21 @@ public class EmpresaController extends Controller<Empresa> implements Serializab
 		
 	}
 	
+	
+	public void desativar() {
+		EmpresaRepository repo = new EmpresaRepository();
+		Empresa emp =repo.desativar(getEntity());
+		if(emp.isDesativo() == true) {
+			Message.addInfoMessage("Empresa desativada com sucesso.");
+		}
+		else if(emp.isDesativo() == false) {
+			Message.addInfoMessage("Empresa reativada com sucesso");
+		}
+		limpar();
+		
+		
+	}
+	
 	public void editar(int id) {
 		EntityManager em = JpaUtil.getEntityManager();
 		setEntity(em.find(Empresa.class, id));
@@ -105,6 +121,17 @@ public class EmpresaController extends Controller<Empresa> implements Serializab
 	}
 
 
+	public List<Estado> complete(String query){
+		
+        List<Estado> lista = getListaEstados();
+      
+      
+        
+
+        return lista;
+	}
+		
 	
+
 	
 }

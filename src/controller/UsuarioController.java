@@ -13,6 +13,7 @@ import Repository.UsuarioRepository;
 import application.JpaUtil;
 import application.Message;
 import application.RepositoryException;
+import modelo.Empresa;
 import modelo.Estado;
 import modelo.Perfil;
 import modelo.Usuario;
@@ -88,6 +89,21 @@ public class UsuarioController extends Controller<Usuario> implements Serializab
 			entity = new Usuario();
 		}
 		return entity;
+	}
+	
+	public void desativar() {
+		UsuarioRepository repo = new UsuarioRepository();
+		Usuario usu =repo.desativar(getEntity());
+		if(usu.isDesativo() == true) {
+			Message.addInfoMessage("Usuario desativado com sucesso.");
+		}
+		else if(usu.isDesativo() == false) {
+			Message.addInfoMessage("Usuario reativado com sucesso");
+		}
+		limpar();
+		
+	
+		
 	}
 
 }

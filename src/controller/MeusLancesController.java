@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import Repository.LanceRepository;
 import application.Message;
+import application.RepositoryException;
 import application.Session;
 import modelo.Lance;
 import modelo.Usuario;
@@ -22,6 +23,9 @@ public class MeusLancesController extends Controller<Lance> implements Serializa
 	private static final long serialVersionUID = -7395420041693680827L;
 	private List<Lance> listaLances;
 	
+	public MeusLancesController() {
+		
+	}
 	
 	
 	
@@ -41,15 +45,22 @@ public class MeusLancesController extends Controller<Lance> implements Serializa
 	
 	public void cancelar(Lance lance) {
 		LanceRepository repo = new LanceRepository();
-		repo.cancelar(lance);
-		Message.addInfoMessage("Lance Cancelado.");
+		try {
+			repo.remover(lance);
+			Message.addInfoMessage("Lance Cancelado.");
+		} catch (Exception e) {
+			Message.addErrorMessage("Erro ao cancelar");
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	public List<Lance> getListaLances() {
-		LanceRepository repo = new LanceRepository();
+		LanceRepository repoLance = new LanceRepository();
 		Usuario usu = (Usuario) Session.getInstance().get("usuarioLogado");
 		if(listaLances == null) {
-			listaLances = repo.obterLancesUsu(usu.getId());
+			listaLances = repoLance.obterLancesUsu(usu.getId());
 		}
 		System.out.println(usu);
 		return listaLances;

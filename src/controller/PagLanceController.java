@@ -21,9 +21,10 @@ public class PagLanceController extends Controller<Lance> implements Serializabl
 	 * 
 	 */
 	private static final long serialVersionUID = -3715769704159182318L;
-	Produto produto;
-	LanceRepository repo = new LanceRepository();
-	List<Lance> listalance;
+	private Produto produto;
+	private double valorMaxProd;
+	private LanceRepository repo = new LanceRepository();
+	private List<Lance> listalance;
 	
 	public PagLanceController() {
 		Session session = Session.getInstance();
@@ -35,13 +36,20 @@ public class PagLanceController extends Controller<Lance> implements Serializabl
 	
 	
 	public void adicionar() {
-		
-			if(repo.adicionar(getEntity(),produto) != null) {
+		    double valor;
+			try {
+				valor = repo.obterMaiorLance(produto);
+			} catch (Exception e) {
+				valor =0;
+				e.printStackTrace();
+			}
+			if(getEntity().getValor() > valor) {
+				repo.adicionar(getEntity(),produto);
 				Message.addInfoMessage("Lance registrado");
 				limpar();
 			}
 			else {
-				Message.addInfoMessage("O valor do lance deve ser maior");
+				Message.addErrorMessage("O valor do lance deve ser maior que " + valor);
 				limpar();
 			}
 			
@@ -99,6 +107,25 @@ public class PagLanceController extends Controller<Lance> implements Serializabl
 
 	public void setListalance(List<Lance> listalance) {
 		this.listalance = listalance;
+	}
+
+
+
+	public double getValorMaxProd() {
+		double valor =0;
+		try {
+			valor =repo.obterMaiorLance(getProduto());
+		} catch (Exception e) {
+			valor = getProduto().getValor();
+			e.printStackTrace();
+		}
+		return valor;
+	}
+
+
+
+	public void setValorMaxProd(double valorMaxProd) {
+		this.valorMaxProd = valorMaxProd;
 	}
 	
 	
