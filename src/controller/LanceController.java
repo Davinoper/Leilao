@@ -45,20 +45,27 @@ public class LanceController extends Controller<Lance> implements Serializable{
 	
 	public void pesquisar(){
 		ProdutoRepository repo = new ProdutoRepository();
-		try {
-			if(filtro.isEmpty()) {
-				setListaprod(repo.obterTodos(Produto.class));
-			}
-			else {
-				setListaprod(repo.findByNome(filtro));
-				limpar();
-			}
-			
-		} catch (RepositoryException e) {
-			e.printStackTrace();
+		if(filtro.isEmpty()) {
+			setListaprod(repo.obterAtivos());
+		}
+		else {
+			setListaprod(repo.findByNome(filtro));
+			limpar();
 		}
 		
 		
+	}
+	
+	public double pegaValorMaxProd(Produto prod) {
+		LanceRepository repo = new LanceRepository();
+		double valor =0;
+		try {
+			valor =repo.obterMaiorLance(prod);
+		} catch (Exception e) {
+			valor = prod.getValor();
+			e.printStackTrace();
+		}
+		return valor;
 	}
 	
 	
@@ -135,11 +142,9 @@ public class LanceController extends Controller<Lance> implements Serializable{
 		repoBid.confereGanhador();
 		desativaPassado();
 		if (listaprod == null) {
-			try {
-				listaprod = repo.obterTodos(Produto.class);
-			} catch (RepositoryException e) {
-				e.printStackTrace();
-			}
+			listaprod = repo.obterAtivos();
+			
+			
 		}
 		return listaprod;
 	}

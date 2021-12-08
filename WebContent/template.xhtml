@@ -28,9 +28,9 @@
   </div>
   
   <nav class="navbar navbar-dark bg-dark">
-       	<img src="https://w7.pngwing.com/pngs/838/205/png-transparent-auction-gavel-icon-auction-angle-internet-hammer-thumbnail.png" width="3%"/>
-       	<h:outputLabel value="Bem vindo #{templateController.usuarioLogado.nome}" style="color:white" rendered="#{templateController.usuarioLogado != null}"/>
-       <p:commandButton icon="pi pi-list" type="button" onclick="PF('sidebar2').show()"  styleClass="ui-button-outlined ui-button-secondary" rendered="#{templateController.usuarioLogado != null}"/>
+       	<img src="/Leilao/faces/img-produto?nome=logo.png" width="9%" style="margin-left:2%"/>
+       	<h:outputLabel value="Bem vindo #{templateController.usuarioLogado.nome}" style="color:white;margin-right:3%" rendered="#{templateController.usuarioLogado != null}"/>
+       <p:commandButton icon="pi pi-list" type="button" onclick="PF('sidebar2').show()" style="margin-right:2%" styleClass="ui-button-outlined ui-button-secondary" rendered="#{templateController.usuarioLogado != null}"/>
   </nav>
 </div>
 	
@@ -47,9 +47,6 @@
     	</div>
     	<div style="margin-top:10px">
     	<p:commandLink value="Cadastro Usuário" action="/faces/pages/cadusu.xhtml?faces-redirect=true" rendered="#{templateController.usuarioLogado.perfil.id  != 2}"/>
-    	</div>
-    	<div style="margin-top:10px">
-    	<p:commandLink value="Cadastro categoria" action="/faces/pages/cadcategoria.xhtml?faces-redirect=true" />
     	</div>
     	<div style="margin-top:10px">
     	<p:commandLink value="Produtos" action="/faces/pages/produtos.xhtml?faces-redirect=true"/>
@@ -92,9 +89,20 @@
 </iu:insert>
     
 
+<style>
+h5{
+color:white;
+margin-left:35%
+}
 
+</style>
 
-
+<footer>
+<nav class="navbar navbar-dark bg-dark"  >
+       	<h5> Copyright 2021 BidClub - Todos os direitos reservados</h5>
+       	<h1>...</h1>
+  </nav>
+</footer>
 	
 </h:body>
 

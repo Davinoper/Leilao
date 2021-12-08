@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import Repository.LanceRepository;
 import Repository.UsuarioRepository;
+import application.JpaUtil;
 import application.RepositoryException;
 import modelo.Lance;
 import modelo.Usuario;
@@ -43,8 +44,7 @@ public class LancesController extends Controller<Lance> implements Serializable{
 		}
 		
 		
-		
-		
+	
 		
 		
 		
@@ -56,6 +56,12 @@ public class LancesController extends Controller<Lance> implements Serializable{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void gerarRelatorio() {
+		
+		JpaUtil.redirect("/Leilao/faces/pages/pagamentosreportservlet");
+	}
+	
 
 	@Override
 	public void limpar() {

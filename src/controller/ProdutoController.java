@@ -66,14 +66,14 @@ public class ProdutoController extends Controller<Produto> implements Serializab
 		limpar();
 	}
 	
-	public void adicionar() {
+	public void adiciona() {
 		ProdutoRepository repo = new ProdutoRepository();
 		try {
-			repo.adicionar(getEntity());
+			Produto p = repo.adicionar(getEntity());
 			
 			if (getFotoInputStream() != null) {
 				// salvando a imagem
-				if (! Upload.saveImageProduto(fotoInputStream, "png", getEntity().getId())) {
+				if (! Upload.saveImageProduto(fotoInputStream, "png", p.getId())) {
 					Message.addErrorMessage("Erro ao salvar. Não foi possível salvar a imagem do produto.");
 					return;
 				}
@@ -147,6 +147,13 @@ public class ProdutoController extends Controller<Produto> implements Serializab
 			Message.addInfoMessage("Upload realizado com sucesso.");
 		} else {
 			Message.addErrorMessage("O tipo da image deve ser png.");
+		}
+		if (getFotoInputStream() != null) {
+			// salvando a imagem
+			if (! Upload.saveImageProduto(fotoInputStream, "png", getEntity().getId())) {
+				Message.addErrorMessage("Erro ao salvar. Não foi possível salvar a imagem do produto.");
+				return;
+			}
 		}
 
 	}

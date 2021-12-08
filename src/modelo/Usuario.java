@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,9 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 
 
@@ -22,23 +20,22 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotEmpty
+	
 	private String nome;
 
-	@NotEmpty
+	
 	private String cpf;
-	@NotEmpty
-	@Email
+	
 	private String email;
 
-	@NotEmpty
+
 	private String senha;
-	@NotNull
+
 	private Perfil perfil;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 
-	@NotEmpty
+	
 	private String telefone;
 	@ManyToMany
 	private List<Produto> listaProduto;
@@ -107,6 +104,8 @@ public class Usuario {
 	}
 	
 	public List<Produto> getListaProduto() {
+		if(listaProduto == null) {
+			listaProduto = new ArrayList<Produto>();		}
 		return listaProduto;
 	}
 	public void setListaProduto(List<Produto> listaProduto) {

@@ -16,13 +16,13 @@ public class Empresa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull
+	
 	private String nome;
 	
-	@NotNull
+	
 	private String cnpj;
 	
-	@NotNull
+	
 	private String telefone;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;

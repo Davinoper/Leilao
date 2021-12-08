@@ -22,8 +22,9 @@
                 				Lista de Desejos
             					</f:facet>
 
-								<p:column headerText="Id">
-									<h:outputText value="#{obj.id}" />
+								<p:column headerText="">
+									<img src="/Leilao/faces/img-produto?nome=#{obj.id}.png"
+										width="60%" />
 								</p:column>
 								<p:column headerText="Nome">
 									<h:outputText value="#{obj.nome}" />
@@ -39,7 +40,7 @@
 								</p:column>
 							    <p:column>
 							    	<p:commandButton value="remover" actionListener="#{desejosController.removeLista(obj)}"  process="@this" update="@form"></p:commandButton>
-							    	<p:commandButton value="Dar Lance" action="#{desejosController.enviarProduto(obj)}" ></p:commandButton>
+							    	<p:commandButton value="Dar Lance" action="#{desejosController.enviarProduto(obj)}" style="margin-left:5px"></p:commandButton>
 							    </p:column>
 
 								

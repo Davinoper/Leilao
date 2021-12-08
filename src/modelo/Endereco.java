@@ -19,19 +19,19 @@ public class Endereco implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotEmpty
+	
 	private String cidade;
 
-	@NotEmpty
+	
 	private String rua;
 	
-	@NotEmpty
+	
 	private String bairro;
 
-	@NotEmpty
+	
 	private String lote;
 
-	@NotNull
+	
 	private Estado estado;
 	
 	public String getCidade() {

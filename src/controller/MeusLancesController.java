@@ -3,18 +3,17 @@ package controller;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import Repository.LanceRepository;
 import application.Message;
-import application.RepositoryException;
 import application.Session;
 import modelo.Lance;
 import modelo.Usuario;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class MeusLancesController extends Controller<Lance> implements Serializable{
 
 	/**

@@ -1,23 +1,49 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:iu="http://xmlns.jcp.org/jsf/facelets">
 <header> </header>
-
+<iu:composition template="/template.xhtml">
+	<iu:define name="content">
 <h:body>
 	<h:form>
-		<h:messages infoStyle="color:green" errorStyle="color:red" />
+		<p:growl id="growl" showDetail="false" />
 		<h1>Informe o email:</h1>
 		<h:panelGrid columns="2">
 		
-		<h:panelGroup>
-			<h:inputText value="#{esqueceuSenhaController.email}" />
-			<h:commandButton value="Enviar" actionListener="#{esqueceuSenhaController.enviarEmail}" />
+		<h:panelGroup style="align:center">
+			<p:inputText value="#{esqueceuSenhaController.email}" />
+			<p:commandButton value="Enviar" actionListener="#{esqueceuSenhaController.enviarEmail}" process="@all" update="@form"/>
 		</h:panelGroup>
-			
+			<br/>
+		
 		<h:commandLink value="Esqueceu a senha" action="/faces/recuperasenha.xhtml?faces-redirect=true" />
 		</h:panelGrid>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 	</h:form>
 </h:body>
-
+</iu:define>
+</iu:composition>
 </html>

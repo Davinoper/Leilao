@@ -1,5 +1,8 @@
 package application;
 
+import java.io.IOException;
+
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,5 +22,13 @@ public class JpaUtil {
 	
 	public static EntityManager getEntityManager() {
 		return emf.createEntityManager();
+	}
+	
+	public static void redirect(String page) {
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(page);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -8,9 +8,10 @@
 <h:head>
 	<title>Meus Lances</title>
 </h:head>
-<h:body>
 <iu:composition template="/template.xhtml">
 		<iu:define name="content">
+<h:body>
+
 
 	
 		<div class="card" id="table">
@@ -19,11 +20,12 @@
 							<p:dataTable id="data" value="#{meusLancesController.listaLances}"
 								var="obj" rowKey="#{obj.id}" selectionMode="single">
 								<f:facet name="header">
-                				Informações de usuário
+                				Meus lances
             					</f:facet>
 
-								<p:column headerText="Id">
-									<h:outputText value="#{obj.id}" />
+								<p:column headerText="">
+									<img src="/Leilao/faces/img-produto?nome=#{obj.prod.id}.png"
+										width="60%" />
 								</p:column>
 								<p:column headerText="Horario">
 									<h:outputText value="#{obj.tempo}" />
@@ -38,7 +40,7 @@
 									<h:outputText value="#{obj.ganhador}" />
 								</p:column>
 								<p:column headerText="Ações">
-									<p:commandButton value="cancelar" process="@form" upddate="@form" actionListener="#{meusLancesController.cancelar(obj)}">
+									<p:commandButton value="cancelar" process="@this" update="@form" actionListener="#{meusLancesController.cancelar(obj)}">
 									
 									</p:commandButton>
 								</p:column>
@@ -49,12 +51,13 @@
 
 
 
-	</h:form>
+						</h:form>
 						</div>
 					
-						</iu:define>
-						</iu:composition>
+						
 						
 						</h:body>
+						</iu:define>
+						</iu:composition>
 						</html>
 						

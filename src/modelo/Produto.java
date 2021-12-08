@@ -17,22 +17,21 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@NotNull
+
 	private String nome;
 	private double valor;
 	
 	private String descricao;
 
-	@NotNull
+
 	private Categoria categoria;
 	
-	@NotNull
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Empresa empresa;
 
 	private LocalDate tempoInit;
 
-	@NotNull
+
 	private LocalDate tempoFim;
 	private boolean vendido;
 	private boolean desativo;

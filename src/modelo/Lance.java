@@ -21,6 +21,7 @@ public class Lance {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 	private boolean ganhador;
+	private boolean cancelado;
 	
 	public int getId() {
 		return id;
@@ -66,6 +67,12 @@ public class Lance {
 	}
 	public void setGanhador(boolean ganhador) {
 		this.ganhador = ganhador;
+	}
+	public boolean isCancelado() {
+		return cancelado;
+	}
+	public void setCancelado(boolean cancelado) {
+		this.cancelado = cancelado;
 	}
 	
 	

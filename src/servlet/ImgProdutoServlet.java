@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/pages/img-produto")
+@WebServlet("/img-produto")
 public class ImgProdutoServlet extends HttpServlet{
  
 	private static final long serialVersionUID = 1172640224100761704L;
@@ -25,7 +25,7 @@ public class ImgProdutoServlet extends HttpServlet{
         String nome = request.getParameter("nome");
         
         // /home/janio/images/usuario/
-        String diretorio = System.getProperty("prod.home") + File.separator + PATH_IMAGES_PRODUTO + File.separator;
+        String diretorio = System.getProperty("user.home") + File.separator + PATH_IMAGES_PRODUTO + File.separator;
         
         // montando a imagem com e endereco do servidor
         // /home/janio/images/usuario/2.png

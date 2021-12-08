@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import application.JpaUtil;
+import application.RepositoryException;
 import modelo.Produto;
 
 public class ProdutoRepository extends Repository<Produto> {
@@ -36,6 +37,12 @@ public class ProdutoRepository extends Repository<Produto> {
 		
 		return prod;
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Produto> obterAtivos(){
+		Query query = em.createQuery("SELECT p FROM Produto p WHERE p.desativo = false");
+		return (List<Produto>) query.getResultList();
 		
 	}
 	

@@ -34,6 +34,7 @@ public enum Perfil {
 		paginasComPermissao.add("/Leilao/faces/pages/cadempresa.xhtml");
 		paginasComPermissao.add("/Leilao/faces/pages/lances.xhtml");
 		paginasComPermissao.add("/Leilao/faces/pages/empresalisting.xhtml");
+		paginasComPermissao.add("/Leilao/faces/pages/pagamentosreportservlet");
 	} 
 	
 	

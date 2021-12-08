@@ -41,15 +41,16 @@
 								</div>
 								<div class="product-grid-item-content">
 									<img
-										src="https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg"
-										width="60%px" />
+										src="/Leilao/faces/img-produto?nome=#{product.id}.png"
+										width="60%" />
 									
 									<p:commandButton value="Bid" action="#{lanceController.enviarProduto(product)}" disabled="#{product.desativo == true}" />
 										
 								
 									
-									<div class="product-name">#{product.nome}</div>
-									<div class="product-description">#{product.descricao}</div>
+									<div class="product-name">Nome: #{product.nome}</div>
+									<div class="product-description">Descrição: #{product.descricao}</div>
+									<div class="product-description">Maior valor: #{lanceController.pegaValorMaxProd(product)}</div>
 								</div>
 								
 							</div>

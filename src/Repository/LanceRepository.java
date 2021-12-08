@@ -32,7 +32,9 @@ public class LanceRepository extends Repository<Lance>{
 			lance.setUsuario((Usuario) Session.getInstance().get("usuarioLogado"));
 			lance.setTempo(LocalDate.now());
 			lance.setProd(produto);
-			em.getTransaction().begin();
+			if(!em.getTransaction().isActive()) { 
+		        em.getTransaction().begin();
+			}    
 			lan = em.merge(lance);
 			em.getTransaction().commit();
 		
@@ -65,6 +67,14 @@ public class LanceRepository extends Repository<Lance>{
 		return lances1;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Lance> obterLancesGanhadores(int id){
+		Query query = em.createQuery("SELECT l FROM Lance l WHERE l.usuario.id = :idusu AND l.ganhador = true AND l.prod.vendido = false");
+		query.setParameter("idusu", id);
+		
+		return (List<Lance>) query.getResultList();
+	}
+ 	
 	
 	public double obterMaiorLance(Produto produto) {
 		Query query = em.createNativeQuery("SELECT MAX(valor) FROM lance WHERE lance.prod_id = :idprod ");

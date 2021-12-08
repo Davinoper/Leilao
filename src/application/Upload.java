@@ -14,7 +14,7 @@ public class Upload {
 	
 	public static boolean saveImageProduto(InputStream inputStream, String imageType, int idproduto) {
 		// Exemplo da maquina do janio: /home/janio/images/usuario
-		String diretorio = System.getProperty("prod.home") + ImgProdutoServlet.PATH_IMAGES_PRODUTO;
+		String diretorio = System.getProperty("user.home") + ImgProdutoServlet.PATH_IMAGES_PRODUTO;
 		
 		// Criando os diretorios caso nao exista
 		File file = new File(diretorio);

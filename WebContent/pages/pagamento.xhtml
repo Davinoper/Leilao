@@ -11,7 +11,7 @@
 
 <iu:composition template="/template.xhtml">
 	<iu:define name="content">
-		<h:body>
+		<h:body id="pagina">
 			<h:form id="geral">
 
 				<p:growl id="growl" showDetail="false" />
@@ -19,13 +19,17 @@
 
 
 				<p:card
-					style="width:40%; margin-bottom: 2em; justify-content:center;align-items: center;margin-left:5%;margin-top:5%">
+					style="width:50%; margin-bottom: 2em; justify-content:center;align-items: center;margin-left:5%;margin-top:5%">
 					<h:panelGroup>
 						<p:dataTable id="dtpg" value="#{cartaoController.listaCartao}"
 							var="obj">
 							<f:facet name="header">Formas de pagamento</f:facet>
 
 
+							<p:column headerText="Bandeira">
+									<img src="/Leilao/faces/img-produto?nome=#{obj.tipo}.png"
+										width="50%" />
+						</p:column>
 							<p:column headerText="Nome">
 
 								<h:outputText value="#{obj.nome}" />
@@ -38,25 +42,39 @@
 								<h:outputText value="#{obj.vencimento}" />
 							</p:column>
 							<p:column headerText="ações">
+							<h:panelGrid columns="2"> 
 
-								<p:commandButton value="Selecionar"
+								<p:commandButton icon="pi pi-check"
 									actionListener="#{cartaoController.selecionar(obj)}"
-									process="@this" update="@this @form:growl @form:dgl2" />
+									process="@this" update="@form @form:growl @form:dgl2 " />
+									
+								<p:commandButton value="X"
+									styleClass="rounded-button ui-button-danger" actionListener="#{cartaoController.removeCard(obj)}"
+									process="@this" update="@form @form:growl @form:dgl2 " />
+							</h:panelGrid>
 							</p:column>
 
-
+							
 
 						</p:dataTable>
 
 
-						<p:button icon="pi pi-plus" styleClass="rounded-button"
+						<p:button icon="pi pi-plus" styleClass="rounded-button ui-button-success"
 							onclick="PF('dlg').show()" />
 
 					</h:panelGroup>
 
 				</p:card>
 
+<style>
 
+#pagina{
+background-image: url(https://pontoon-e.com/wp-content/uploads/2018/08/leilao-1920x1080.jpg);
+
+}
+
+
+</style>
 
 
 
@@ -149,6 +167,10 @@
 						<f:facet name="header">
                 				Produtos
             					</f:facet>
+            			<p:column headerText="">
+									<img src="/Leilao/faces/img-produto?nome=#{obj.prod.id}.png"
+										width="100%" />
+						</p:column>
 
 						<p:column headerText="Produto">
 							<h:outputText value="#{obj.prod.nome}" />
@@ -166,7 +188,7 @@
 							<p:commandButton styleClass="rounded-button ui-button-danger"
 								value="X"
 								actionListener="#{cartaoController.removeCarrinho(obj)}"
-								process="@this" update="data @form:total"></p:commandButton>
+								process="@this" update="@form:data @form:total @form:dgl2"></p:commandButton>
 
 
 						</p:column>
@@ -174,7 +196,7 @@
 
 					</p:dataTable>
 					
-					<p:button type="button" style="margin-top:10px; justify:rigth" value="finalizar pedido" onclick="PF('dlg2').show()" process="data dgl2" update="dgl2"></p:button>
+					<p:button type="button" style="margin-top:10px; justify:rigth" value="finalizar pedido" onclick="PF('dlg2').show()" process="data dgl2" update="dgl2 total"></p:button>
 					<h:outputText id="total" value="  Total: R$ #{cartaoController.valorTot}"/>	
 					
 				</p:card>
@@ -195,6 +217,11 @@
 						<h:outputText value="R$ #{cartaoController.valorTot}"/>
 					</p:column>
 					</p:panelGrid>
+					<p:column>
+						<p:commandButton value="Finalizar"
+									actionListener="#{cartaoController.finalizarPedido}"
+									process="@this @form:data" update="@form" />
+					</p:column>
 					
 					</p:dialog>
 			
